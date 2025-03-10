@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <!-- Responsive Meta Tag for Mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>5 10 50 Hike Challenge</title>
   <style>
     /* Global styles */
@@ -311,6 +314,49 @@
       color: #ccc;
       font-size: 0.95em;
       margin-top: 10px;
+    }
+
+    /* =========================
+       MEDIA QUERY FOR SMALL SCREENS
+       ========================= */
+    @media (max-width: 600px) {
+      /* Stack columns vertically */
+      .top-section {
+        flex-direction: column;
+        align-items: center;
+      }
+      /* Let finishers and photos take full width */
+      .finishers,
+      .photos {
+        flex: 0 0 auto;
+        width: 100%;
+        margin-bottom: 20px;
+        align-items: center; /* center the content on small screens */
+      }
+      /* Shrink or adapt the logo */
+      .logo-container img {
+        max-width: 80%;
+      }
+      /* Make sure summary, dashboard, disclaimers, etc. scale well */
+      .summary,
+      .dashboard,
+      .liability-disclaimer,
+      .form-container {
+        padding: 10px;
+        margin: 0 10px;
+        max-width: 100%;
+      }
+      .summary p {
+        font-size: 1em;
+        line-height: 1.4;
+      }
+      .site-title {
+        font-size: 1.5em;
+      }
+      .button {
+        font-size: 1em;
+        padding: 8px 16px;
+      }
     }
   </style>
 </head>
