@@ -23,16 +23,15 @@
       color: inherit;
     }
 
-    /* Top navigation container */
+    /* Top navigation (Hamburger) */
     .top-nav {
       position: relative;
-      padding: 10px 20px;
+      padding: 8px 10px;
       display: flex;
       justify-content: flex-end;
       align-items: center;
       background-color: #000;
     }
-    /* Hamburger icon */
     .hamburger {
       width: 30px;
       height: 24px;
@@ -46,35 +45,56 @@
       background-color: #fff; /* White lines */
       border-radius: 2px;
     }
-    /* Dropdown menu */
     .dropdown {
       position: absolute;
-      top: 60px;
-      right: 20px;
+      top: 40px;
+      right: 10px;
       background-color: #111;
       border: 1px solid #333;
       border-radius: 4px;
-      padding: 10px;
-      display: none; /* hidden by default */
+      padding: 5px;
+      display: none;
       z-index: 999;
     }
     .dropdown a {
       display: block;
       color: #fff;
-      padding: 8px 0;
+      padding: 5px 0;
     }
     .dropdown a:hover {
-      color: #00BFFF; /* Light blue on hover */
+      color: #00BFFF;
     }
-    /* Show the dropdown when toggled */
     .show {
       display: block;
     }
 
-    /* Dashboard section (now at top) */
+    /* Title & Logo at the very top (minimal spacing) */
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      margin: 5px auto 10px auto; /* minimal spacing at top */
+      text-align: center;
+    }
+    .site-title {
+      margin: 5px 0; /* very small margin */
+      color: #00BFFF;
+      font-size: 2em;
+      font-weight: bold;
+    }
+    .logo-container img {
+      max-width: 350px;
+      height: auto;
+      display: block;
+      margin: 5px auto; /* minimal vertical spacing around the logo */
+    }
+
+    /* Dashboard immediately beneath logo, 20% smaller (80% width) */
     .dashboard {
-      max-width: 700px;
-      margin: 10px auto 20px auto;
+      width: 80%;        /* 80% => ~20% smaller than original 100%/700px */
+      max-width: 560px;  /* if 700px was old max, 80% is 560px */
+      margin: 0 auto 20px auto;
       border: 1px solid #fff;
       padding: 20px;
       border-radius: 8px;
@@ -109,7 +129,7 @@
     .button {
       display: inline-block;
       padding: 10px 20px;
-      background-color: #00BFFF; /* Light blue */
+      background-color: #00BFFF;
       color: #000;
       border-radius: 4px;
       border: none;
@@ -120,29 +140,7 @@
       background-color: #87CEFA; 
     }
 
-    /* Logo container (moved below the dashboard) */
-    .logo-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      margin: 0 auto 20px auto;
-      text-align: center;
-    }
-    .site-title {
-      margin-bottom: 20px;
-      color: #00BFFF;
-      font-size: 2em;
-      font-weight: bold;
-    }
-    .logo-container img {
-      max-width: 350px;
-      height: auto;
-      display: block;
-      margin: 0 auto;
-    }
-
-    /* Summary (the paragraph) */
+    /* Paragraph (Summary) */
     .summary {
       max-width: 700px;
       margin: 0 auto 20px auto;
@@ -154,10 +152,10 @@
       font-size: 1.2em;
     }
 
-    /* Liability disclaimer */
+    /* Liability disclaimer - smaller bottom margin to reduce gap before footer */
     .liability-disclaimer {
       max-width: 700px;
-      margin: 0 auto 40px auto;
+      margin: 0 auto 10px auto; /* changed from 40px to 10px */
       padding: 0 20px;
       text-align: left;
       font-size: 0.9em;
@@ -215,7 +213,7 @@
       margin-top: 20px;
     }
 
-    /* "Top Section" with finishers & photos, now at the bottom */
+    /* "Top Section" for finishers & photos */
     .top-section {
       display: flex;
       justify-content: center;
@@ -223,7 +221,7 @@
       gap: 20px;
       padding: 20px;
       max-width: 1200px;
-      margin: 0 auto 40px auto; /* moved to the bottom */
+      margin: 0 auto 40px auto;
       text-align: center;
     }
     .finishers {
@@ -312,8 +310,8 @@
 
     /* Responsive for small screens */
     @media (max-width: 600px) {
-      .dashboard,
       .logo-container,
+      .dashboard,
       .summary,
       .liability-disclaimer,
       .form-container {
@@ -323,6 +321,7 @@
       }
       .site-title {
         font-size: 1.5em;
+        margin: 5px 0;
       }
       .logo-container img {
         max-width: 80%;
@@ -347,7 +346,7 @@
 </head>
 <body>
 
-  <!-- Top Nav -->
+  <!-- Top Nav (Hamburger) -->
   <div class="top-nav">
     <div class="hamburger" onclick="toggleMenu()">
       <div class="bar"></div>
@@ -362,7 +361,13 @@
     </div>
   </div>
 
-  <!-- 1) Dashboard at the Top -->
+  <!-- Title & Logo at top -->
+  <div class="logo-container">
+    <div class="site-title">5 10 50 Hike Challenge</div>
+    <img src="logo2.jpg" alt="5 10 50 Hike Challenge Logo" />
+  </div>
+
+  <!-- Dashboard (80% width => 20% smaller) -->
   <div class="dashboard">
     <h2>Hikes Completed Dashboard</h2>
     <div class="counters">
@@ -384,13 +389,7 @@
     </div>
   </div>
 
-  <!-- 2) Title & 3) Logo -->
-  <div class="logo-container">
-    <div class="site-title">5 10 50 Hike Challenge</div>
-    <img src="logo2.jpg" alt="5 10 50 Hike Challenge Logo" />
-  </div>
-
-  <!-- 4) Paragraph (Summary) -->
+  <!-- Paragraph (Summary) -->
   <div class="summary">
     <p>
       In 2025 we have started this 5 10 50 Hike Challenge with the vision that it becomes a
@@ -408,7 +407,7 @@
     </p>
   </div>
 
-  <!-- Liability Disclaimer -->
+  <!-- Liability Disclaimer (now with less bottom margin) -->
   <div class="liability-disclaimer">
     <p>
       <strong>Disclaimer:</strong> Participation in the 5 10 50 Hike Challenge is completely voluntary.
@@ -422,13 +421,11 @@
   <!-- Hidden Form -->
   <div id="submitHikeForm" class="form-container">
     <h2>Submit Your Hike</h2>
-
     <div class="form-disclaimer">
       By submitting this form, you agree that 5 10 50 Hike Challenge may count your hike 
       toward our community goal, and you confirm that you have completed the selected hike length. 
       If a photo is uploaded, you give 5 10 50 Hike Challenge permission to share it in marketing materials.
     </div>
-
     <form onsubmit="return validateForm()">
       <p style="color: #ccc; font-size: 0.9em;">
         All fields marked "(required)" must be filled out. Photo is optional.
@@ -479,7 +476,7 @@
     </form>
   </div>
 
-  <!-- Now the "Finishers" & "Photos" at the Bottom -->
+  <!-- Finishers & Photos at bottom (top-section) -->
   <div class="top-section">
     <!-- Left side: finishers' names -->
     <div class="finishers">
