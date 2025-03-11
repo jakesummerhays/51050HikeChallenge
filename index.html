@@ -26,7 +26,7 @@
     /* Top navigation container */
     .top-nav {
       position: relative;
-      padding: 10px 20px;
+      padding: 8px 10px; /* Reduced padding to bring everything closer together */
       display: flex;
       justify-content: flex-end;
       align-items: center;
@@ -51,8 +51,8 @@
     /* Dropdown menu */
     .dropdown {
       position: absolute;
-      top: 60px; /* just below the hamburger icon */
-      right: 20px;
+      top: 50px; /* slightly reduced from 60px */
+      right: 10px;
       background-color: #111;
       border: 1px solid #333;
       border-radius: 4px;
@@ -78,9 +78,10 @@
     .top-section {
       display: flex;
       justify-content: center;
-      align-items: flex-start; /* top-align if content is taller on one side */
+      align-items: flex-start;
       gap: 20px;
-      padding: 20px;
+      /* Reduced vertical padding */
+      padding: 10px;
       max-width: 1200px;
       margin: 0 auto;
       text-align: center;
@@ -94,7 +95,7 @@
       flex-direction: column;
       align-items: flex-start;
       justify-content: flex-start;
-      padding: 10px;
+      padding: 5px; /* Slightly reduced */
     }
     .name-list {
       display: flex;
@@ -117,13 +118,13 @@
       justify-content: flex-start;
     }
     .site-title {
-      margin-bottom: 20px;
+      margin-bottom: 10px; /* Reduced from 20px */
       color: #00BFFF;
       font-size: 2em;
       font-weight: bold;
     }
     .logo-container img {
-      max-width: 350px;
+      max-width: 300px; /* Reduced from 350px to fit better on small screens */
       height: auto;
       display: block;
       margin: 0 auto;
@@ -137,7 +138,7 @@
       flex-direction: column;
       align-items: flex-end;
       justify-content: flex-start;
-      padding: 10px;
+      padding: 5px; /* Slightly reduced */
     }
     .photo-list {
       display: flex;
@@ -156,26 +157,28 @@
     /* Dashboard section */
     .dashboard {
       max-width: 700px;
-      margin: 0 auto 40px auto;
+      /* Reduced bottom margin to bring the dashboard closer to the logo */
+      margin: 0 auto 20px auto; 
       border: 1px solid #fff;
-      padding: 20px;
+      /* Reduced padding to tighten spacing */
+      padding: 10px;
       border-radius: 8px;
       text-align: center;
     }
     .dashboard h2 {
       margin-top: 0;
-      margin-bottom: 20px;
+      margin-bottom: 10px; /* Reduced from 20px */
     }
     .counters {
       display: flex;
       justify-content: space-around;
-      margin-bottom: 20px;
+      margin-bottom: 10px; /* Reduced from 20px */
       flex-wrap: wrap;
     }
     .counter {
-      margin: 10px;
+      margin: 5px;
       text-align: center;
-      min-width: 100px;
+      min-width: 80px;
     }
     .counter h3 {
       margin-bottom: 5px;
@@ -186,13 +189,13 @@
       font-weight: bold;
     }
     .submit-link {
-      margin-top: 20px;
+      margin-top: 10px; /* Reduced from 20px */
     }
 
     .button {
       display: inline-block;
-      padding: 10px 20px;
-      background-color: #00BFFF; /* Light blue */
+      padding: 8px 16px; /* Reduced from 10px 20px */
+      background-color: #00BFFF; 
       color: #000;
       border-radius: 4px;
       border: none;
@@ -206,8 +209,9 @@
     /* Summary area */
     .summary {
       max-width: 700px;
-      margin: 0 auto 20px auto;
-      padding: 20px;
+      /* Reduced bottom margin to ensure it's off-screen initially on mobile */
+      margin: 0 auto 10px auto;
+      padding: 10px; /* Reduced from 20px */
       text-align: left;
       line-height: 1.6;
     }
@@ -218,8 +222,8 @@
     /* Liability disclaimer */
     .liability-disclaimer {
       max-width: 700px;
-      margin: 0 auto 40px auto;
-      padding: 0 20px;
+      margin: 0 auto 20px auto; /* Reduced from 40px */
+      padding: 0 10px;
       text-align: left;
       font-size: 0.9em;
       color: #ccc;
@@ -229,9 +233,9 @@
     /* Hidden form container (shown via JavaScript) */
     .form-container {
       max-width: 700px;
-      margin: 40px auto;
+      margin: 20px auto; /* Reduced from 40px */
       border: 1px solid #fff;
-      padding: 20px;
+      padding: 10px; /* Reduced from 20px */
       border-radius: 8px;
       text-align: left;
       display: none; 
@@ -239,16 +243,16 @@
     .form-container h2 {
       text-align: center;
       margin-top: 0;
-      margin-bottom: 20px;
+      margin-bottom: 10px; /* Reduced from 20px */
     }
     .form-disclaimer {
       font-size: 0.9em;
-      margin-bottom: 20px;
+      margin-bottom: 10px; /* Reduced from 20px */
       line-height: 1.4;
       color: #ccc; 
     }
     .form-group {
-      margin-bottom: 15px;
+      margin-bottom: 10px; /* Reduced from 15px */
     }
     .form-group label {
       display: block;
@@ -263,7 +267,7 @@
       padding: 8px;
     }
     .preview-container {
-      margin-top: 10px;
+      margin-top: 5px; /* Reduced from 10px */
     }
     .preview-container img {
       max-width: 100px; 
@@ -273,13 +277,13 @@
     }
     .form-actions {
       text-align: center;
-      margin-top: 20px;
+      margin-top: 10px; /* Reduced from 20px */
     }
 
     /* Footer with social media handles & email */
     .footer {
       background-color: #111;
-      padding: 20px;
+      padding: 10px; /* Reduced from 20px */
       text-align: center;
     }
     .footer h3 {
@@ -290,7 +294,7 @@
     .social-media {
       display: flex;
       flex-wrap: wrap;
-      gap: 15px;
+      gap: 10px; /* Reduced from 15px */
       justify-content: center;
       align-items: center;
       margin-bottom: 10px;
@@ -313,7 +317,7 @@
     .footer .email {
       color: #ccc;
       font-size: 0.95em;
-      margin-top: 10px;
+      margin-top: 5px; /* Reduced from 10px */
     }
 
     /* =========================
@@ -330,12 +334,12 @@
       .photos {
         flex: 0 0 auto;
         width: 100%;
-        margin-bottom: 20px;
-        align-items: center; /* center the content on small screens */
+        margin-bottom: 15px; 
+        align-items: center; 
       }
-      /* Shrink or adapt the logo */
+      /* Shrink or adapt the logo further if needed */
       .logo-container img {
-        max-width: 80%;
+        max-width: 70%;
       }
       /* Make sure summary, dashboard, disclaimers, etc. scale well */
       .summary,
@@ -352,10 +356,17 @@
       }
       .site-title {
         font-size: 1.5em;
+        margin-bottom: 5px;
       }
       .button {
         font-size: 1em;
-        padding: 8px 16px;
+        padding: 6px 12px;
+      }
+      .dashboard h2 {
+        margin-bottom: 5px;
+      }
+      .counters {
+        margin-bottom: 10px;
       }
     }
   </style>
