@@ -10,10 +10,10 @@
     /* Global Reset & Base */
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
     body {
+      margin: 0;
+      padding: 0;
       background-color: #000;
       color: #fff;
       font-family: Arial, sans-serif;
@@ -23,15 +23,16 @@
       color: inherit;
     }
 
-    /* Top Nav with minimal spacing */
+    /* Top navigation container */
     .top-nav {
       position: relative;
+      padding: 10px 20px;
       display: flex;
       justify-content: flex-end;
       align-items: center;
       background-color: #000;
-      padding: 5px 10px;
     }
+    /* Hamburger icon */
     .hamburger {
       width: 30px;
       height: 24px;
@@ -42,307 +43,304 @@
     }
     .bar {
       height: 4px;
-      background-color: #fff;
+      background-color: #fff; /* White lines */
       border-radius: 2px;
     }
+    /* Dropdown menu */
     .dropdown {
       position: absolute;
-      top: 40px;
-      right: 10px;
+      top: 60px;
+      right: 20px;
       background-color: #111;
       border: 1px solid #333;
       border-radius: 4px;
-      padding: 5px;
-      display: none;
+      padding: 10px;
+      display: none; /* hidden by default */
       z-index: 999;
     }
     .dropdown a {
       display: block;
       color: #fff;
-      padding: 5px 0;
+      padding: 8px 0;
     }
     .dropdown a:hover {
-      color: #00BFFF;
+      color: #00BFFF; /* Light blue on hover */
     }
+    /* Show the dropdown when toggled */
     .show {
       display: block;
     }
 
-    /* Top Section (finishers, logo, photos) with minimal spacing */
-    .top-section {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      gap: 10px;      /* Reduced gap */
-      padding: 5px;   /* Very minimal padding */
-      max-width: 1200px;
-      margin: 0 auto;
+    /* Dashboard section (now at top) */
+    .dashboard {
+      max-width: 700px;
+      margin: 10px auto 20px auto;
+      border: 1px solid #fff;
+      padding: 20px;
+      border-radius: 8px;
       text-align: center;
     }
-    .finishers,
-    .photos {
-      flex: 0 0 160px;  /* Slightly smaller default width */
-      min-height: 100px; /* Reduced height */
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: flex-start;
-      padding: 5px;
+    .dashboard h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
     }
-    .name-list,
-    .photo-list {
+    .counters {
       display: flex;
-      flex-direction: column;
-      gap: 5px;
-      width: 100%;
-      word-wrap: break-word;
+      justify-content: space-around;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
     }
-    .name-item,
-    .photo-item {
-      background-color: #1a1a1a;
+    .counter {
+      margin: 10px;
+      text-align: center;
+      min-width: 100px;
+    }
+    .counter h3 {
+      margin-bottom: 5px;
+    }
+    .counter p {
+      font-size: 1.5em;
+      margin: 0;
+      font-weight: bold;
+    }
+    .submit-link {
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #00BFFF; /* Light blue */
+      color: #000;
       border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
     }
-    .name-item {
-      padding: 3px 6px;
-    }
-    .photo-item {
-      max-width: 70px; /* Slightly smaller photos */
-      border: 1px solid #ccc;
-      display: block;
+    .button:hover {
+      background-color: #87CEFA; 
     }
 
-    /* Logo Container & Title with minimal spacing */
+    /* Logo container (moved below the dashboard) */
     .logo-container {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
+      margin: 0 auto 20px auto;
+      text-align: center;
     }
     .site-title {
+      margin-bottom: 20px;
       color: #00BFFF;
-      font-size: 1.8em; /* Slightly smaller than 2em */
+      font-size: 2em;
       font-weight: bold;
-      margin-bottom: 5px;
     }
     .logo-container img {
-      max-width: 280px; /* Reduced from 300px */
+      max-width: 350px;
       height: auto;
       display: block;
       margin: 0 auto;
     }
 
-    /* Dashboard with minimal spacing */
-    .dashboard {
-      max-width: 700px;
-      margin: 0 auto;   /* No bottom margin, so it's closer to the logo */
-      border: 1px solid #fff;
-      padding: 8px;     /* Reduced padding */
-      border-radius: 8px;
-      text-align: center;
-    }
-    .dashboard h2 {
-      margin-bottom: 5px; /* Reduced */
-      font-size: 1.3em;
-    }
-    .counters {
-      display: flex;
-      justify-content: space-around;
-      margin-bottom: 5px; /* Reduced */
-      flex-wrap: wrap;
-    }
-    .counter {
-      margin: 5px;
-      text-align: center;
-      min-width: 70px;
-    }
-    .counter h3 {
-      margin-bottom: 3px; /* Very tight spacing */
-      font-size: 1em;
-    }
-    .counter p {
-      font-size: 1.3em; /* Slightly smaller */
-      margin: 0;
-      font-weight: bold;
-    }
-    .submit-link {
-      margin-top: 5px; /* Minimal spacing */
-    }
-    .button {
-      padding: 5px 10px;
-      background-color: #00BFFF;
-      color: #000;
-      border-radius: 4px;
-      border: none;
-      cursor: pointer;
-      font-size: 0.95em;
-      transition: background 0.3s;
-    }
-    .button:hover {
-      background-color: #87CEFA;
-    }
-
-    /* Summary with minimal spacing */
+    /* Summary (the paragraph) */
     .summary {
       max-width: 700px;
-      margin: 5px auto;   /* Very tight spacing above/below */
-      padding: 5px;
+      margin: 0 auto 20px auto;
+      padding: 20px;
       text-align: left;
-      line-height: 1.4;   /* Slightly tighter line spacing */
+      line-height: 1.6;
     }
     .summary p {
-      font-size: 1em;
-      margin-bottom: 5px;
+      font-size: 1.2em;
     }
 
-    /* Liability disclaimer with minimal spacing */
+    /* Liability disclaimer */
     .liability-disclaimer {
       max-width: 700px;
-      margin: 5px auto;
-      padding: 5px;
+      margin: 0 auto 40px auto;
+      padding: 0 20px;
       text-align: left;
-      font-size: 0.8em;  /* Slightly smaller font */
+      font-size: 0.9em;
       color: #ccc;
-      line-height: 1.3;
+      line-height: 1.4;
     }
 
-    /* Form container with minimal spacing */
+    /* Hidden form container */
     .form-container {
       max-width: 700px;
-      margin: 10px auto; /* Minimal spacing around form */
+      margin: 40px auto;
       border: 1px solid #fff;
-      padding: 10px;
+      padding: 20px;
       border-radius: 8px;
       text-align: left;
-      display: none;
+      display: none; 
     }
     .form-container h2 {
       text-align: center;
-      margin-bottom: 5px;
-      font-size: 1.2em;
+      margin-top: 0;
+      margin-bottom: 20px;
     }
     .form-disclaimer {
-      font-size: 0.8em;
-      margin-bottom: 5px;
-      line-height: 1.3;
-      color: #ccc;
+      font-size: 0.9em;
+      margin-bottom: 20px;
+      line-height: 1.4;
+      color: #ccc; 
     }
     .form-group {
-      margin-bottom: 8px;
+      margin-bottom: 15px;
     }
     .form-group label {
       display: block;
-      margin-bottom: 3px;
+      margin-bottom: 5px;
       font-weight: bold;
-      font-size: 0.9em;
     }
     .form-group input[type="text"],
     .form-group input[type="email"],
     .form-group input[type="file"],
     .form-group select {
       width: 100%;
-      padding: 5px;
-      font-size: 0.9em;
+      padding: 8px;
     }
     .preview-container {
-      margin-top: 3px;
+      margin-top: 10px;
     }
     .preview-container img {
-      max-width: 80px;
+      max-width: 100px; 
       border: 1px solid #ccc;
       border-radius: 4px;
-      display: none;
+      display: none; 
     }
     .form-actions {
       text-align: center;
-      margin-top: 5px;
+      margin-top: 20px;
     }
 
-    /* Footer with minimal spacing */
+    /* "Top Section" with finishers & photos, now at the bottom */
+    .top-section {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto 40px auto; /* moved to the bottom */
+      text-align: center;
+    }
+    .finishers {
+      flex: 0 0 200px; 
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding: 10px;
+    }
+    .name-list {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      width: 100%;
+      word-wrap: break-word;
+    }
+    .name-item {
+      background-color: #1a1a1a;
+      padding: 5px 10px;
+      border-radius: 4px;
+    }
+    .photos {
+      flex: 0 0 200px;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding: 10px;
+    }
+    .photo-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      align-items: flex-end;
+    }
+    .photo-item {
+      max-width: 80px; 
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      display: block;
+    }
+
+    /* Footer */
     .footer {
       background-color: #111;
-      padding: 10px;
+      padding: 20px;
       text-align: center;
     }
     .footer h3 {
-      margin-bottom: 5px;
-      font-size: 1.1em;
+      margin: 0 0 10px 0;
+      font-size: 1.2em;
       color: #fff;
     }
     .social-media {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 15px;
       justify-content: center;
       align-items: center;
-      margin-bottom: 5px;
+      margin-bottom: 10px;
     }
     .social-link {
       display: flex;
       align-items: center;
-      gap: 3px;
+      gap: 5px;
       color: #00BFFF;
       font-weight: bold;
-      font-size: 0.9em;
       transition: color 0.3s;
     }
     .social-link:hover {
       color: #87CEFA;
     }
     .social-icon {
-      width: 20px;
-      height: 20px;
+      width: 24px;
+      height: 24px;
     }
     .footer .email {
       color: #ccc;
-      font-size: 0.85em;
-      margin-top: 3px;
+      font-size: 0.95em;
+      margin-top: 10px;
     }
 
-    /* MEDIA QUERY for screens <= 600px */
+    /* Responsive for small screens */
     @media (max-width: 600px) {
+      .dashboard,
+      .logo-container,
+      .summary,
+      .liability-disclaimer,
+      .form-container {
+        margin: 10px auto;
+        padding: 10px;
+        max-width: 95%;
+      }
+      .site-title {
+        font-size: 1.5em;
+      }
+      .logo-container img {
+        max-width: 80%;
+      }
+      .counters {
+        flex-direction: column;
+        align-items: center;
+      }
       .top-section {
         flex-direction: column;
         align-items: center;
-        padding: 5px;
+        margin-bottom: 20px;
       }
       .finishers,
       .photos {
         width: 100%;
         align-items: center;
-        margin-bottom: 8px;
-      }
-      .logo-container img {
-        max-width: 65%;
-      }
-      .dashboard {
-        padding: 8px;
-        margin: 5px auto;
-      }
-      .dashboard h2 {
-        margin-bottom: 5px;
-        font-size: 1.1em;
-      }
-      .counter p {
-        font-size: 1.1em;
-      }
-      .summary {
-        margin: 5px auto;
-        padding: 5px;
-      }
-      .summary p {
-        font-size: 0.9em;
-      }
-      .site-title {
-        font-size: 1.4em;
-        margin-bottom: 3px;
-      }
-      .button {
-        font-size: 0.9em;
-        padding: 4px 8px;
-      }
-      .form-container {
-        margin: 5px auto;
-        padding: 8px;
+        margin-bottom: 20px;
       }
     }
   </style>
@@ -364,26 +362,7 @@
     </div>
   </div>
 
-  <!-- Top Section -->
-  <div class="top-section">
-    <!-- Left side: finishers' names -->
-    <div class="finishers">
-      <div class="name-list" id="nameList"></div>
-    </div>
-
-    <!-- Center: Title + Logo -->
-    <div class="logo-container">
-      <div class="site-title">5 10 50 Hike Challenge</div>
-      <img src="logo2.jpg" alt="5 10 50 Hike Challenge Logo" />
-    </div>
-
-    <!-- Right side: Photos -->
-    <div class="photos">
-      <div class="photo-list" id="photoList"></div>
-    </div>
-  </div>
-
-  <!-- Dashboard Section -->
+  <!-- 1) Dashboard at the Top -->
   <div class="dashboard">
     <h2>Hikes Completed Dashboard</h2>
     <div class="counters">
@@ -405,7 +384,13 @@
     </div>
   </div>
 
-  <!-- Summary -->
+  <!-- 2) Title & 3) Logo -->
+  <div class="logo-container">
+    <div class="site-title">5 10 50 Hike Challenge</div>
+    <img src="logo2.jpg" alt="5 10 50 Hike Challenge Logo" />
+  </div>
+
+  <!-- 4) Paragraph (Summary) -->
   <div class="summary">
     <p>
       In 2025 we have started this 5 10 50 Hike Challenge with the vision that it becomes a
@@ -437,13 +422,15 @@
   <!-- Hidden Form -->
   <div id="submitHikeForm" class="form-container">
     <h2>Submit Your Hike</h2>
+
     <div class="form-disclaimer">
       By submitting this form, you agree that 5 10 50 Hike Challenge may count your hike 
       toward our community goal, and you confirm that you have completed the selected hike length. 
       If a photo is uploaded, you give 5 10 50 Hike Challenge permission to share it in marketing materials.
     </div>
+
     <form onsubmit="return validateForm()">
-      <p style="color: #ccc; font-size: 0.85em;">
+      <p style="color: #ccc; font-size: 0.9em;">
         All fields marked "(required)" must be filled out. Photo is optional.
       </p>
 
@@ -463,7 +450,7 @@
       </div>
 
       <div class="form-group">
-        <label for="email">Email (required):</label>
+        <label for="email">Email (required - just to verify it's you; we will delete after that):</label>
         <input type="email" id="email" name="email" required />
       </div>
 
@@ -490,6 +477,23 @@
         <button type="button" class="button" onclick="hideForm()">Cancel</button>
       </div>
     </form>
+  </div>
+
+  <!-- Now the "Finishers" & "Photos" at the Bottom -->
+  <div class="top-section">
+    <!-- Left side: finishers' names -->
+    <div class="finishers">
+      <div class="name-list" id="nameList">
+        <!-- Names appended here by JS -->
+      </div>
+    </div>
+
+    <!-- Right side: Photos list -->
+    <div class="photos">
+      <div class="photo-list" id="photoList">
+        <!-- Photos appended here by JS -->
+      </div>
+    </div>
   </div>
 
   <!-- Footer -->
