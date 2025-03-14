@@ -4,33 +4,36 @@
   <meta charset="UTF-8" />
   <!-- Responsive Meta Tag for Mobile -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>5 10 50 Hike Challenge</title>
+
   <style>
-    /* Global Reset & Base */
+    /* --------------------------
+       GLOBAL RESETS & BASE
+    --------------------------- */
     * {
       box-sizing: border-box;
-    }
-    body {
       margin: 0;
       padding: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
       background-color: #000;
       color: #fff;
-      font-family: Arial, sans-serif;
     }
     a {
       text-decoration: none;
       color: inherit;
     }
 
-    /* Top navigation (Hamburger) */
+    /* --------------------------
+       TOP NAV & HAMBURGER
+    --------------------------- */
     .top-nav {
-      position: relative;
-      padding: 8px 10px;
       display: flex;
       justify-content: flex-end;
       align-items: center;
       background-color: #000;
+      padding: 8px 10px;
     }
     .hamburger {
       width: 30px;
@@ -42,12 +45,12 @@
     }
     .bar {
       height: 4px;
-      background-color: #fff; /* White lines */
+      background-color: #fff;
       border-radius: 2px;
     }
     .dropdown {
       position: absolute;
-      top: 40px;
+      top: 48px;
       right: 10px;
       background-color: #111;
       border: 1px solid #333;
@@ -68,124 +71,130 @@
       display: block;
     }
 
-    /* Title & Logo at the very top (minimal spacing) */
-    .logo-container {
+    /* --------------------------
+       HEADER (TITLE & LOGO)
+    --------------------------- */
+    .header {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      margin: 5px auto 10px auto; /* minimal spacing at top */
       text-align: center;
+      margin: 10px auto 15px auto;
+      max-width: 95%;
     }
     .site-title {
-      margin: 5px 0; /* very small margin */
-      color: #00BFFF;
       font-size: 2em;
       font-weight: bold;
+      color: #00BFFF;
+      margin-bottom: 10px;
     }
-    .logo-container img {
+    .logo {
       max-width: 350px;
       height: auto;
-      display: block;
-      margin: 5px auto; /* minimal vertical spacing around the logo */
     }
 
-    /* Dashboard immediately beneath logo, 20% smaller (80% width) */
+    /* --------------------------
+       DASHBOARD
+    --------------------------- */
     .dashboard {
-      width: 80%;        /* 80% => ~20% smaller than original 100%/700px */
-      max-width: 560px;  /* if 700px was old max, 80% is 560px */
+      width: 80%;  /* 20% smaller than full width */
+      max-width: 560px; /* if 700px was the original size, 80% is 560px */
       margin: 0 auto 20px auto;
       border: 1px solid #fff;
-      padding: 20px;
       border-radius: 8px;
+      padding: 20px;
       text-align: center;
     }
     .dashboard h2 {
-      margin-top: 0;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
     .counters {
       display: flex;
       justify-content: space-around;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       flex-wrap: wrap;
     }
     .counter {
-      margin: 10px;
+      margin: 8px;
+      min-width: 90px;
       text-align: center;
-      min-width: 100px;
     }
     .counter h3 {
       margin-bottom: 5px;
+      font-size: 1em;
     }
     .counter p {
-      font-size: 1.5em;
       margin: 0;
+      font-size: 1.5em;
       font-weight: bold;
     }
     .submit-link {
-      margin-top: 20px;
+      margin-top: 15px;
     }
     .button {
       display: inline-block;
       padding: 10px 20px;
       background-color: #00BFFF;
       color: #000;
-      border-radius: 4px;
       border: none;
+      border-radius: 4px;
       cursor: pointer;
       transition: background 0.3s;
     }
     .button:hover {
-      background-color: #87CEFA; 
+      background-color: #87CEFA;
     }
 
-    /* Paragraph (Summary) */
+    /* --------------------------
+       SUMMARY PARAGRAPHS
+    --------------------------- */
     .summary {
       max-width: 700px;
       margin: 0 auto 20px auto;
-      padding: 20px;
-      text-align: left;
+      padding: 15px;
       line-height: 1.6;
     }
     .summary p {
-      font-size: 1.2em;
+      font-size: 1.1em;
+      margin-bottom: 10px;
     }
 
-    /* Liability disclaimer - smaller bottom margin to reduce gap before footer */
-    .liability-disclaimer {
+    /* --------------------------
+       LIABILITY DISCLAIMER
+    --------------------------- */
+    .disclaimer {
       max-width: 700px;
-      margin: 0 auto 10px auto; /* changed from 40px to 10px */
-      padding: 0 20px;
-      text-align: left;
-      font-size: 0.9em;
+      margin: 0 auto;
+      padding: 0 15px 15px;
       color: #ccc;
+      font-size: 0.9em;
       line-height: 1.4;
+      text-align: left;
     }
 
-    /* Hidden form container */
+    /* --------------------------
+       FORM CONTAINER (HIDDEN)
+    --------------------------- */
     .form-container {
       max-width: 700px;
-      margin: 40px auto;
-      border: 1px solid #fff;
+      margin: 30px auto;
       padding: 20px;
+      border: 1px solid #fff;
       border-radius: 8px;
-      text-align: left;
-      display: none; 
+      display: none;
     }
     .form-container h2 {
       text-align: center;
-      margin-top: 0;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
     .form-disclaimer {
+      color: #ccc;
       font-size: 0.9em;
-      margin-bottom: 20px;
       line-height: 1.4;
-      color: #ccc; 
+      margin-bottom: 15px;
     }
     .form-group {
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
     .form-group label {
       display: block;
@@ -200,43 +209,45 @@
       padding: 8px;
     }
     .preview-container {
-      margin-top: 10px;
+      margin-top: 5px;
     }
     .preview-container img {
-      max-width: 100px; 
+      max-width: 100px;
       border: 1px solid #ccc;
       border-radius: 4px;
-      display: none; 
+      display: none;
     }
     .form-actions {
       text-align: center;
-      margin-top: 20px;
+      margin-top: 10px;
     }
 
-    /* "Top Section" for finishers & photos */
-    .top-section {
+    /* --------------------------
+       FINISHERS & PHOTOS
+    --------------------------- */
+    .finishers-photos {
       display: flex;
       justify-content: center;
       align-items: flex-start;
       gap: 20px;
-      padding: 20px;
       max-width: 1200px;
-      margin: 0 auto 40px auto;
+      margin: 20px auto 40px auto;
+      padding: 10px;
       text-align: center;
     }
-    .finishers {
-      flex: 0 0 200px; 
-      min-height: 200px;
+    .finishers,
+    .photos {
+      flex: 0 0 200px;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      justify-content: flex-start;
-      padding: 10px;
+      align-items: center;
+      gap: 10px;
     }
-    .name-list {
+    .name-list,
+    .photo-list {
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 6px;
       width: 100%;
       word-wrap: break-word;
     }
@@ -244,38 +255,25 @@
       background-color: #1a1a1a;
       padding: 5px 10px;
       border-radius: 4px;
-    }
-    .photos {
-      flex: 0 0 200px;
-      min-height: 200px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      justify-content: flex-start;
-      padding: 10px;
-    }
-    .photo-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+      text-align: left;
       width: 100%;
-      align-items: flex-end;
     }
     .photo-item {
-      max-width: 80px; 
+      max-width: 80px;
       border: 1px solid #ccc;
       border-radius: 4px;
-      display: block;
     }
 
-    /* Footer */
+    /* --------------------------
+       FOOTER
+    --------------------------- */
     .footer {
       background-color: #111;
       padding: 20px;
       text-align: center;
     }
     .footer h3 {
-      margin: 0 0 10px 0;
+      margin-bottom: 10px;
       font-size: 1.2em;
       color: #fff;
     }
@@ -284,7 +282,6 @@
       flex-wrap: wrap;
       gap: 15px;
       justify-content: center;
-      align-items: center;
       margin-bottom: 10px;
     }
     .social-link {
@@ -302,51 +299,50 @@
       width: 24px;
       height: 24px;
     }
-    .footer .email {
+    .email {
       color: #ccc;
       font-size: 0.95em;
-      margin-top: 10px;
+      margin-top: 5px;
     }
 
-    /* Responsive for small screens */
+    /* --------------------------
+       RESPONSIVE MEDIA QUERY
+    --------------------------- */
     @media (max-width: 600px) {
-      .logo-container,
       .dashboard,
       .summary,
-      .liability-disclaimer,
+      .disclaimer,
       .form-container {
+        width: 90%;
         margin: 10px auto;
-        padding: 10px;
-        max-width: 95%;
+        padding: 15px;
       }
       .site-title {
         font-size: 1.5em;
-        margin: 5px 0;
       }
-      .logo-container img {
-        max-width: 80%;
+      .logo {
+        max-width: 70%;
       }
       .counters {
         flex-direction: column;
         align-items: center;
       }
-      .top-section {
+      .finishers-photos {
         flex-direction: column;
         align-items: center;
-        margin-bottom: 20px;
+        margin: 10px auto 20px auto;
       }
       .finishers,
       .photos {
-        width: 100%;
-        align-items: center;
-        margin-bottom: 20px;
+        width: 80%;
+        margin-bottom: 15px;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Nav (Hamburger) -->
+  <!-- NAVBAR WITH HAMBURGER -->
   <div class="top-nav">
     <div class="hamburger" onclick="toggleMenu()">
       <div class="bar"></div>
@@ -361,13 +357,13 @@
     </div>
   </div>
 
-  <!-- Title & Logo at top -->
-  <div class="logo-container">
+  <!-- HEADER (TITLE & LOGO) -->
+  <div class="header">
     <div class="site-title">5 10 50 Hike Challenge</div>
-    <img src="logo2.jpg" alt="5 10 50 Hike Challenge Logo" />
+    <img class="logo" src="logo2.jpg" alt="5 10 50 Hike Challenge Logo" />
   </div>
 
-  <!-- Dashboard (80% width => 20% smaller) -->
+  <!-- DASHBOARD (80% width => 20% smaller) -->
   <div class="dashboard">
     <h2>Hikes Completed Dashboard</h2>
     <div class="counters">
@@ -389,7 +385,7 @@
     </div>
   </div>
 
-  <!-- Paragraph (Summary) -->
+  <!-- SUMMARY PARAGRAPHS -->
   <div class="summary">
     <p>
       In 2025 we have started this 5 10 50 Hike Challenge with the vision that it becomes a
@@ -407,8 +403,8 @@
     </p>
   </div>
 
-  <!-- Liability Disclaimer (now with less bottom margin) -->
-  <div class="liability-disclaimer">
+  <!-- LIABILITY DISCLAIMER -->
+  <div class="disclaimer">
     <p>
       <strong>Disclaimer:</strong> Participation in the 5 10 50 Hike Challenge is completely voluntary.
       By choosing to hike, you understand and accept that you do so at your own risk. 5 10 50 Hike
@@ -418,7 +414,7 @@
     </p>
   </div>
 
-  <!-- Hidden Form -->
+  <!-- HIDDEN FORM CONTAINER -->
   <div id="submitHikeForm" class="form-container">
     <h2>Submit Your Hike</h2>
     <div class="form-disclaimer">
@@ -430,12 +426,10 @@
       <p style="color: #ccc; font-size: 0.9em;">
         All fields marked "(required)" must be filled out. Photo is optional.
       </p>
-
       <div class="form-group">
         <label for="name">Name (required):</label>
         <input type="text" id="name" name="name" required />
       </div>
-
       <div class="form-group">
         <label for="state">State of Hike (required):</label>
         <select id="state" name="state" required>
@@ -445,12 +439,10 @@
           <!-- Add all states as needed -->
         </select>
       </div>
-
       <div class="form-group">
         <label for="email">Email (required - just to verify it's you; we will delete after that):</label>
         <input type="email" id="email" name="email" required />
       </div>
-
       <div class="form-group">
         <label for="hikeLength">Hike Length (required):</label>
         <select id="hikeLength" name="hikeLength" required>
@@ -460,7 +452,6 @@
           <option value="50 Mile Hike">50 Mile Hike</option>
         </select>
       </div>
-
       <div class="form-group">
         <label for="photo">Photo (optional):</label>
         <input type="file" id="photo" name="photo" accept="image/*" />
@@ -468,7 +459,6 @@
           <img id="photoPreview" alt="Preview" />
         </div>
       </div>
-
       <div class="form-actions">
         <button type="submit" class="button">Submit</button>
         <button type="button" class="button" onclick="hideForm()">Cancel</button>
@@ -476,84 +466,82 @@
     </form>
   </div>
 
-  <!-- Finishers & Photos at bottom (top-section) -->
-  <div class="top-section">
-    <!-- Left side: finishers' names -->
+  <!-- FINISHERS & PHOTOS -->
+  <div class="finishers-photos">
     <div class="finishers">
-      <div class="name-list" id="nameList">
-        <!-- Names appended here by JS -->
-      </div>
+      <h3>Finishers</h3>
+      <div class="name-list" id="nameList"></div>
     </div>
-
-    <!-- Right side: Photos list -->
     <div class="photos">
-      <div class="photo-list" id="photoList">
-        <!-- Photos appended here by JS -->
-      </div>
+      <h3>Photos</h3>
+      <div class="photo-list" id="photoList"></div>
     </div>
   </div>
 
-  <!-- Footer -->
+  <!-- FOOTER -->
   <div class="footer">
     <h3>Connect with Us</h3>
     <div class="social-media">
       <a href="#" target="_blank" class="social-link">
         <img 
-          src="https://cdn-icons-png.flaticon.com/512/733/733547.png" 
-          alt="Facebook" 
-          class="social-icon" 
+          src="https://cdn-icons-png.flaticon.com/512/733/733547.png"
+          alt="Facebook"
+          class="social-icon"
         />
         @test1
       </a>
       <a href="#" target="_blank" class="social-link">
         <img 
-          src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" 
-          alt="Instagram" 
-          class="social-icon" 
+          src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png"
+          alt="Instagram"
+          class="social-icon"
         />
         @test2
       </a>
       <a href="#" target="_blank" class="social-link">
         <img 
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/X_logo_2023.svg/240px-X_logo_2023.svg.png" 
-          alt="X" 
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/X_logo_2023.svg/240px-X_logo_2023.svg.png"
+          alt="X"
           class="social-icon"
         />
         @test3
       </a>
       <a href="#" target="_blank" class="social-link">
         <img 
-          src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" 
-          alt="TikTok" 
+          src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png"
+          alt="TikTok"
           class="social-icon"
         />
         @test4
       </a>
       <a href="#" target="_blank" class="social-link">
         <img 
-          src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" 
-          alt="YouTube" 
+          src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png"
+          alt="YouTube"
           class="social-icon"
         />
         test5
       </a>
       <a href="#" target="_blank" class="social-link">
         <img 
-          src="https://cdn-icons-png.flaticon.com/512/1384/1384014.png" 
-          alt="LinkedIn" 
+          src="https://cdn-icons-png.flaticon.com/512/1384/1384014.png"
+          alt="LinkedIn"
           class="social-icon"
         />
         test6
       </a>
     </div>
     <div class="email">
-      Email: <a href="mailto:jake@51050HikeChallenge.org" style="color: #00BFFF;">jake@51050HikeChallenge.org</a>
+      Email:
+      <a href="mailto:jake@51050HikeChallenge.org" style="color: #00BFFF;">
+        jake@51050HikeChallenge.org
+      </a>
     </div>
   </div>
 
   <script>
     /*************************************************************
-     * In-memory storage for hike submissions
+     * In-memory counters & form logic
      *************************************************************/
     const userHikes = {};
     let fiveMileCount = 0;
@@ -567,11 +555,9 @@
     const nameList = document.getElementById('nameList');
     const photoList = document.getElementById('photoList');
 
-    // Hamburger menu toggle
     function toggleMenu() {
       document.getElementById('myDropdown').classList.toggle('show');
     }
-    // Close dropdown if user clicks outside
     window.onclick = function(e) {
       if (!e.target.matches('.hamburger') && !e.target.matches('.bar')) {
         const dropdown = document.getElementById('myDropdown');
@@ -585,14 +571,12 @@
       document.getElementById('submitHikeForm').style.display = 'block';
       document.getElementById('submitHikeForm').scrollIntoView({ behavior: 'smooth' });
     }
-
     function hideForm() {
       document.getElementById('submitHikeForm').style.display = 'none';
     }
 
     const photoInput = document.getElementById('photo');
     const photoPreview = document.getElementById('photoPreview');
-
     photoInput.addEventListener('change', function() {
       const file = this.files && this.files[0];
       if (!file) {
@@ -619,6 +603,7 @@
         alert("Please fill out all required fields.");
         return false;
       }
+
       if (!userHikes[email]) {
         userHikes[email] = {
           "5 Mile Hike": false,
@@ -626,12 +611,13 @@
           "50 Mile Hike": false
         };
       }
-      if (userHikes[email][hikeLength] === true) {
+      if (userHikes[email][hikeLength]) {
         alert("You have already submitted the " + hikeLength + " for this email.");
         return false;
       }
       userHikes[email][hikeLength] = true;
 
+      // Update counters
       if (hikeLength === "5 Mile Hike") {
         fiveMileCount++;
         fiveMileElem.textContent = fiveMileCount;
@@ -646,10 +632,10 @@
       // Add finisher name
       const nameItem = document.createElement('div');
       nameItem.classList.add('name-item');
-      nameItem.textContent = name + " (" + hikeLength.replace(" Hike","") + ")";
+      nameItem.textContent = name + " (" + hikeLength.replace(" Hike", "") + ")";
       nameList.appendChild(nameItem);
 
-      // Add photo if any
+      // If a photo is provided, add it
       if (file) {
         const reader = new FileReader();
         reader.onload = function(e) {
