@@ -526,11 +526,10 @@
 
   <script>
     /*************************************************************
-     * 1) REPLACE THIS with your actual Apps Script Web App URL 
-     *    e.g. "https://script.google.com/macros/s/XXXXXXX/exec"
+     * 1) YOUR APPS SCRIPT WEB APP URL
+     *    This is the live endpoint that ends in /exec
      *************************************************************/
-    const WEB_APP_URL = "YOUR_WEB_APP_URL";
-
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxPMUMx4znzCrcFPdoQC5Tt7wHmj9Pgt4z2bt7VjXc6TfqMnt1yED-dcna51yCwhv6rlg/exec";
 
     /*************************************************************
      * 2) HAMBURGER MENU TOGGLE
@@ -547,7 +546,6 @@
       }
     };
 
-
     /*************************************************************
      * 3) SHOW/HIDE THE FORM
      *************************************************************/
@@ -558,7 +556,6 @@
     function hideForm() {
       document.getElementById('submitHikeForm').style.display = 'none';
     }
-
 
     /*************************************************************
      * 4) PHOTO PREVIEW LOGIC (OPTIONAL)
@@ -580,7 +577,6 @@
       reader.readAsDataURL(file);
     });
 
-
     /*************************************************************
      * 5) HANDLE FORM SUBMISSION (REPLACES IN-MEMORY)
      *************************************************************/
@@ -594,8 +590,8 @@
       const state = document.getElementById('state').value;
       const email = document.getElementById('email').value.trim();
       const hikeLength = document.getElementById('hikeLength').value;
-      // For real photo handling, you'd do more logic (upload link or base64)
-      // We'll skip that for now
+
+      // If you handle photo more thoroughly, do it here
       const data = {
         name,
         state,
@@ -605,7 +601,6 @@
       };
 
       try {
-        // POST to your Apps Script Web App
         const response = await fetch(WEB_APP_URL, {
           method: "POST",
           headers: {
@@ -621,7 +616,7 @@
           document.querySelector('#submitHikeForm form').reset();
           photoPreview.style.display = 'none';
           photoPreview.src = '';
-          // Refresh the data from Sheets
+          // Refresh data from Sheets
           fetchHikeDataFromSheet();
         } else {
           alert("Error: " + result.message);
@@ -630,7 +625,6 @@
         alert("Request failed: " + err);
       }
     }
-
 
     /*************************************************************
      * 6) FETCH DATA FROM SHEETS (doGet) TO UPDATE DASHBOARD
