@@ -2,10 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- Responsive Meta Tag for Mobile -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>5 10 50 Hike Challenge</title>
-
   <style>
     /* --------------------------
        GLOBAL RESETS & BASE
@@ -103,13 +101,13 @@
       border: 1px solid #fff;
       border-radius: 8px;
       padding: 20px;
-      text-align: left; /* We'll align labels to the left */
+      text-align: left;
     }
     .dashboard-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin: 10px 0; /* spacing between rows */
+      margin: 10px 0;
     }
     .dashboard-label {
       font-size: 1.1em;
@@ -120,7 +118,7 @@
     }
     .submit-link {
       margin-top: 15px;
-      text-align: center; /* Center the button */
+      text-align: center;
     }
     .button {
       display: inline-block;
@@ -350,7 +348,7 @@
     <img class="logo" src="logo2.jpg" alt="5 10 50 Hike Challenge Logo" />
   </div>
 
-  <!-- DASHBOARD with stacked left label, right count -->
+  <!-- DASHBOARD with stacked label & count -->
   <div class="dashboard">
     <div class="dashboard-row">
       <div class="dashboard-label">5 Mile Hikes</div>
@@ -364,7 +362,6 @@
       <div class="dashboard-label">50 Mile Hikes</div>
       <div class="dashboard-count" id="fiftyMileCount">0</div>
     </div>
-
     <div class="submit-link">
       <button class="button" onclick="showForm()">Submit Your Hike</button>
     </div>
@@ -407,7 +404,7 @@
       toward our community goal, and you confirm that you have completed the selected hike length. 
       If a photo is uploaded, you give 5 10 50 Hike Challenge permission to share it in marketing materials.
     </div>
-    <form onsubmit="return validateForm()">
+    <form onsubmit="handleFormSubmission(event)">
       <p style="color: #ccc; font-size: 0.9em;">
         All fields marked "(required)" must be filled out. Photo is optional.
       </p>
@@ -525,24 +522,17 @@
   </div>
 
   <script>
-    /*************************************************************
-     * In-memory counters & form logic
-     *************************************************************/
-    const userHikes = {};
-    let fiveMileCount = 0;
-    let tenMileCount = 0;
-    let fiftyMileCount = 0;
+    /* 
+     * REPLACE THIS with your actual Apps Script Web App URL 
+     * e.g. "https://script.google.com/macros/s/XXXXXXX/exec"
+     */
+    const WEB_APP_URL = "YOUR_WEB_APP_URL";
 
-    const fiveMileElem = document.getElementById('fiveMileCount');
-    const tenMileElem = document.getElementById('tenMileCount');
-    const fiftyMileElem = document.getElementById('fiftyMileCount');
-
-    const nameList = document.getElementById('nameList');
-    const photoList = document.getElementById('photoList');
-
+    // Show/Hide the hamburger dropdown
     function toggleMenu() {
       document.getElementById('myDropdown').classList.toggle('show');
     }
+    // Close dropdown if user clicks outside
     window.onclick = function(e) {
       if (!e.target.matches('.hamburger') && !e.target.matches('.bar')) {
         const dropdown = document.getElementById('myDropdown');
@@ -552,6 +542,7 @@
       }
     };
 
+    // Show/Hide the submission form
     function showForm() {
       document.getElementById('submitHikeForm').style.display = 'block';
       document.getElementById('submitHikeForm').scrollIntoView({ behavior: 'smooth' });
@@ -560,6 +551,7 @@
       document.getElementById('submitHikeForm').style.display = 'none';
     }
 
+    // Photo preview logic
     const photoInput = document.getElementById('photo');
     const photoPreview = document.getElementById('photoPreview');
     photoInput.addEventListener('change', function() {
@@ -577,70 +569,105 @@
       reader.readAsDataURL(file);
     });
 
-    function validateForm() {
+    // Handle form submission
+    function handleFormSubmission(event) {
+      event.preventDefault(); // Prevent page reload
+      submitHikeToSheet();
+    }
+
+    // SUBMITTING data to Google Sheets via doPost
+    async function submitHikeToSheet() {
       const name = document.getElementById('name').value.trim();
       const state = document.getElementById('state').value;
-      const email = document.getElementById('email').value.trim().toLowerCase();
+      const email = document.getElementById('email').value.trim();
       const hikeLength = document.getElementById('hikeLength').value;
-      const file = photoInput.files && photoInput.files[0];
+      // For a real photo, you might store a link or base64
+      // We'll skip that here or store an empty string
+      // If you wanted to handle base64, you'd do more logic
 
-      if (!name || !state || !email || !hikeLength) {
-        alert("Please fill out all required fields.");
-        return false;
+      const data = {
+        name,
+        state,
+        email,
+        hikeLength,
+        photoURL: "" // or some logic for the photo
+      };
+
+      try {
+        const response = await fetch(WEB_APP_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        });
+        const result = await response.json();
+        if (result.status === "success") {
+          alert("Hike recorded in Google Sheets!");
+          hideForm();
+          // Clear the form
+          document.querySelector('#submitHikeForm form').reset();
+          photoPreview.style.display = 'none';
+          photoPreview.src = '';
+          // Refresh the dashboard from Sheets
+          fetchHikeDataFromSheet();
+        } else {
+          alert("Error: " + result.message);
+        }
+      } catch (err) {
+        alert("Request failed: " + err);
       }
-
-      if (!userHikes[email]) {
-        userHikes[email] = {
-          "5 Mile Hike": false,
-          "10 Mile Hike": false,
-          "50 Mile Hike": false
-        };
-      }
-      if (userHikes[email][hikeLength]) {
-        alert("You have already submitted the " + hikeLength + " for this email.");
-        return false;
-      }
-      userHikes[email][hikeLength] = true;
-
-      // Update counters
-      if (hikeLength === "5 Mile Hike") {
-        fiveMileCount++;
-        fiveMileElem.textContent = fiveMileCount;
-      } else if (hikeLength === "10 Mile Hike") {
-        tenMileCount++;
-        tenMileElem.textContent = tenMileCount;
-      } else if (hikeLength === "50 Mile Hike") {
-        fiftyMileCount++;
-        fiftyMileElem.textContent = fiftyMileCount;
-      }
-
-      // Add finisher name
-      const nameItem = document.createElement('div');
-      nameItem.classList.add('name-item');
-      nameItem.textContent = name + " (" + hikeLength.replace(" Hike", "") + ")";
-      nameList.appendChild(nameItem);
-
-      // If a photo is provided, add it
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const img = document.createElement('img');
-          img.src = e.target.result;
-          img.alt = name + "'s Hike Photo";
-          img.classList.add('photo-item');
-          photoList.appendChild(img);
-        };
-        reader.readAsDataURL(file);
-      }
-
-      alert("Thank you for your submission! We have recorded your hike.");
-      hideForm();
-      document.querySelector('#submitHikeForm form').reset();
-      photoPreview.style.display = 'none';
-      photoPreview.src = '';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return false;
     }
+
+    // FETCHING data from Google Sheets via doGet
+    async function fetchHikeDataFromSheet() {
+      try {
+        const response = await fetch(WEB_APP_URL); // GET request to doGet
+        const submissions = await response.json(); // array of objects
+
+        // Reset counters
+        let fiveCount = 0;
+        let tenCount = 0;
+        let fiftyCount = 0;
+
+        // Clear existing lists
+        document.getElementById('nameList').innerHTML = "";
+        document.getElementById('photoList').innerHTML = "";
+
+        submissions.forEach(entry => {
+          // Tally counters
+          if (entry.hikeLength === "5 Mile Hike") fiveCount++;
+          else if (entry.hikeLength === "10 Mile Hike") tenCount++;
+          else if (entry.hikeLength === "50 Mile Hike") fiftyCount++;
+
+          // Add name to finisher list
+          const nameDiv = document.createElement('div');
+          nameDiv.classList.add('name-item');
+          nameDiv.textContent = entry.name + " (" + entry.hikeLength.replace(" Hike","") + ")";
+          document.getElementById('nameList').appendChild(nameDiv);
+
+          // If there's a photoURL, display it
+          if (entry.photoURL) {
+            const img = document.createElement('img');
+            img.src = entry.photoURL;
+            img.alt = entry.name + "'s Hike Photo";
+            img.classList.add('photo-item');
+            document.getElementById('photoList').appendChild(img);
+          }
+        });
+
+        // Update the counters on the dashboard
+        document.getElementById('fiveMileCount').textContent = fiveCount;
+        document.getElementById('tenMileCount').textContent = tenCount;
+        document.getElementById('fiftyMileCount').textContent = fiftyCount;
+
+      } catch (err) {
+        console.error("Failed to fetch data from Sheets:", err);
+      }
+    }
+
+    // On page load, fetch the existing data
+    window.onload = fetchHikeDataFromSheet;
   </script>
 </body>
 </html>
