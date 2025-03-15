@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <!-- Responsive Meta Tag for Mobile -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>5 10 50 Hike Challenge</title>
+
   <style>
     /* --------------------------
        GLOBAL RESETS & BASE
@@ -348,7 +350,7 @@
     <img class="logo" src="logo2.jpg" alt="5 10 50 Hike Challenge Logo" />
   </div>
 
-  <!-- DASHBOARD with stacked label & count -->
+  <!-- DASHBOARD -->
   <div class="dashboard">
     <div class="dashboard-row">
       <div class="dashboard-label">5 Mile Hikes</div>
@@ -404,6 +406,7 @@
       toward our community goal, and you confirm that you have completed the selected hike length. 
       If a photo is uploaded, you give 5 10 50 Hike Challenge permission to share it in marketing materials.
     </div>
+    <!-- The form uses onsubmit to call handleFormSubmission -->
     <form onsubmit="handleFormSubmission(event)">
       <p style="color: #ccc; font-size: 0.9em;">
         All fields marked "(required)" must be filled out. Photo is optional.
@@ -522,17 +525,19 @@
   </div>
 
   <script>
-    /* 
-     * REPLACE THIS with your actual Apps Script Web App URL 
-     * e.g. "https://script.google.com/macros/s/XXXXXXX/exec"
-     */
+    /*************************************************************
+     * 1) REPLACE THIS with your actual Apps Script Web App URL 
+     *    e.g. "https://script.google.com/macros/s/XXXXXXX/exec"
+     *************************************************************/
     const WEB_APP_URL = "YOUR_WEB_APP_URL";
 
-    // Show/Hide the hamburger dropdown
+
+    /*************************************************************
+     * 2) HAMBURGER MENU TOGGLE
+     *************************************************************/
     function toggleMenu() {
       document.getElementById('myDropdown').classList.toggle('show');
     }
-    // Close dropdown if user clicks outside
     window.onclick = function(e) {
       if (!e.target.matches('.hamburger') && !e.target.matches('.bar')) {
         const dropdown = document.getElementById('myDropdown');
@@ -542,7 +547,10 @@
       }
     };
 
-    // Show/Hide the submission form
+
+    /*************************************************************
+     * 3) SHOW/HIDE THE FORM
+     *************************************************************/
     function showForm() {
       document.getElementById('submitHikeForm').style.display = 'block';
       document.getElementById('submitHikeForm').scrollIntoView({ behavior: 'smooth' });
@@ -551,7 +559,10 @@
       document.getElementById('submitHikeForm').style.display = 'none';
     }
 
-    // Photo preview logic
+
+    /*************************************************************
+     * 4) PHOTO PREVIEW LOGIC (OPTIONAL)
+     *************************************************************/
     const photoInput = document.getElementById('photo');
     const photoPreview = document.getElementById('photoPreview');
     photoInput.addEventListener('change', function() {
@@ -569,31 +580,32 @@
       reader.readAsDataURL(file);
     });
 
-    // Handle form submission
+
+    /*************************************************************
+     * 5) HANDLE FORM SUBMISSION (REPLACES IN-MEMORY)
+     *************************************************************/
     function handleFormSubmission(event) {
       event.preventDefault(); // Prevent page reload
       submitHikeToSheet();
     }
 
-    // SUBMITTING data to Google Sheets via doPost
     async function submitHikeToSheet() {
       const name = document.getElementById('name').value.trim();
       const state = document.getElementById('state').value;
       const email = document.getElementById('email').value.trim();
       const hikeLength = document.getElementById('hikeLength').value;
-      // For a real photo, you might store a link or base64
-      // We'll skip that here or store an empty string
-      // If you wanted to handle base64, you'd do more logic
-
+      // For real photo handling, you'd do more logic (upload link or base64)
+      // We'll skip that for now
       const data = {
         name,
         state,
         email,
         hikeLength,
-        photoURL: "" // or some logic for the photo
+        photoURL: ""
       };
 
       try {
+        // POST to your Apps Script Web App
         const response = await fetch(WEB_APP_URL, {
           method: "POST",
           headers: {
@@ -609,7 +621,7 @@
           document.querySelector('#submitHikeForm form').reset();
           photoPreview.style.display = 'none';
           photoPreview.src = '';
-          // Refresh the dashboard from Sheets
+          // Refresh the data from Sheets
           fetchHikeDataFromSheet();
         } else {
           alert("Error: " + result.message);
@@ -619,10 +631,13 @@
       }
     }
 
-    // FETCHING data from Google Sheets via doGet
+
+    /*************************************************************
+     * 6) FETCH DATA FROM SHEETS (doGet) TO UPDATE DASHBOARD
+     *************************************************************/
     async function fetchHikeDataFromSheet() {
       try {
-        const response = await fetch(WEB_APP_URL); // GET request to doGet
+        const response = await fetch(WEB_APP_URL); // GET request
         const submissions = await response.json(); // array of objects
 
         // Reset counters
@@ -634,8 +649,8 @@
         document.getElementById('nameList').innerHTML = "";
         document.getElementById('photoList').innerHTML = "";
 
+        // Tally & display
         submissions.forEach(entry => {
-          // Tally counters
           if (entry.hikeLength === "5 Mile Hike") fiveCount++;
           else if (entry.hikeLength === "10 Mile Hike") tenCount++;
           else if (entry.hikeLength === "50 Mile Hike") fiftyCount++;
@@ -666,7 +681,7 @@
       }
     }
 
-    // On page load, fetch the existing data
+    // On page load, fetch existing data from Sheets
     window.onload = fetchHikeDataFromSheet;
   </script>
 </body>
