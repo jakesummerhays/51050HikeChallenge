@@ -527,7 +527,7 @@
   <script>
     /*************************************************************
      * 1) YOUR APPS SCRIPT WEB APP URL
-     *    This is the live endpoint that ends in /exec
+     *    (Ends in /exec)
      *************************************************************/
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxPMUMx4znzCrcFPdoQC5Tt7wHmj9Pgt4z2bt7VjXc6TfqMnt1yED-dcna51yCwhv6rlg/exec";
 
@@ -578,7 +578,7 @@
     });
 
     /*************************************************************
-     * 5) HANDLE FORM SUBMISSION (REPLACES IN-MEMORY)
+     * 5) HANDLE FORM SUBMISSION (POSTS TO APPS SCRIPT)
      *************************************************************/
     function handleFormSubmission(event) {
       event.preventDefault(); // Prevent page reload
@@ -591,7 +591,6 @@
       const email = document.getElementById('email').value.trim();
       const hikeLength = document.getElementById('hikeLength').value;
 
-      // If you handle photo more thoroughly, do it here
       const data = {
         name,
         state,
@@ -627,7 +626,7 @@
     }
 
     /*************************************************************
-     * 6) FETCH DATA FROM SHEETS (doGet) TO UPDATE DASHBOARD
+     * 6) FETCH DATA FROM SHEETS (GETS FROM APPS SCRIPT)
      *************************************************************/
     async function fetchHikeDataFromSheet() {
       try {
