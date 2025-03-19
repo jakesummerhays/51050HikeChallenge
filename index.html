@@ -165,7 +165,7 @@
     }
 
     /* --------------------------
-       FINISHERS & PHOTOS
+       FINISHERS (NO PHOTOS)
     --------------------------- */
     .finishers-photos {
       display: flex;
@@ -177,16 +177,14 @@
       padding: 10px;
       text-align: center;
     }
-    .finishers,
-    .photos {
+    .finishers {
       flex: 0 0 200px;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 10px;
     }
-    .name-list,
-    .photo-list {
+    .name-list {
       display: flex;
       flex-direction: column;
       gap: 6px;
@@ -199,11 +197,6 @@
       border-radius: 4px;
       text-align: left;
       width: 100%;
-    }
-    .photo-item {
-      max-width: 80px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
     }
 
     /* --------------------------
@@ -269,8 +262,7 @@
         align-items: center;
         margin: 10px auto 20px auto;
       }
-      .finishers,
-      .photos {
+      .finishers {
         width: 80%;
         margin-bottom: 15px;
       }
@@ -315,7 +307,7 @@
       <div class="dashboard-count" id="fiftyMileCount">0</div>
     </div>
     <div class="submit-link">
-      <!-- Google Form URL inserted here -->
+      <!-- Google Form URL from your previous code snippet -->
       <a class="button" href="https://docs.google.com/forms/d/e/1FAIpQLScI2HN5KbJOdWM2WBOHyMxiU0ML5muFDZ3KDP9nkqS3sRoWwg/viewform?usp=dialog" target="_blank">
         Submit Your Hike
       </a>
@@ -336,7 +328,7 @@
     </p>
     <p>
       Remember—after you have completed your hike to <strong>SUBMIT IT</strong> so that your hike,
-      your name, and your picture (optional) can be posted on our finisher board.
+      your name, and your story can be posted on our finisher board.
     </p>
   </div>
 
@@ -351,15 +343,11 @@
     </p>
   </div>
 
-  <!-- FINISHERS & PHOTOS -->
+  <!-- FINISHERS (NO PHOTOS) -->
   <div class="finishers-photos">
     <div class="finishers">
       <h3>Finishers</h3>
       <div class="name-list" id="nameList"></div>
-    </div>
-    <div class="photos">
-      <h3>Photos</h3>
-      <div class="photo-list" id="photoList"></div>
     </div>
   </div>
 
@@ -426,13 +414,13 @@
 
   <script>
     /*************************************************************
-     * 1) DO_GET_URL from Apps Script
-     *    This is your deployed Web App endpoint ending in /exec
+     * DO_GET_URL from your Apps Script Web App
+     * Replaced with your actual /exec endpoint
      *************************************************************/
     const DO_GET_URL = "https://script.google.com/macros/s/AKfycbwDfy9-YWF4J8AUX-L-lvF_oeDWER66K3p9CnM2cPvUmTPrkte45PkZ7ixMvgHcst5fMg/exec";
 
     /*************************************************************
-     * 2) HAMBURGER MENU TOGGLE
+     * HAMBURGER MENU TOGGLE
      *************************************************************/
     function toggleMenu() {
       document.getElementById('myDropdown').classList.toggle('show');
@@ -447,7 +435,7 @@
     };
 
     /*************************************************************
-     * 3) FETCH DATA FROM SHEETS (via doGet) TO UPDATE DASHBOARD
+     * FETCH DATA FROM SHEETS (doGet) TO UPDATE DASHBOARD
      *************************************************************/
     async function fetchHikeDataFromSheet() {
       try {
@@ -459,9 +447,8 @@
         let tenCount = 0;
         let fiftyCount = 0;
 
-        // Clear existing lists
+        // Clear existing list
         document.getElementById('nameList').innerHTML = "";
-        document.getElementById('photoList').innerHTML = "";
 
         // Tally & display
         submissions.forEach(entry => {
@@ -474,15 +461,6 @@
           nameDiv.classList.add('name-item');
           nameDiv.textContent = entry.name + " (" + entry.hikeLength.replace(" Hike","") + ")";
           document.getElementById('nameList').appendChild(nameDiv);
-
-          // If there's a photoURL, display it
-          if (entry.photoURL) {
-            const img = document.createElement('img');
-            img.src = entry.photoURL;
-            img.alt = entry.name + "'s Hike Photo";
-            img.classList.add('photo-item');
-            document.getElementById('photoList').appendChild(img);
-          }
         });
 
         // Update the counters on the dashboard
