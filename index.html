@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <!-- Responsive Meta Tag for Mobile -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5 10 50 Hike Challenge</title>
+  <title>hikechallenge.org</title>
 
   <style>
     /* --------------------------
@@ -23,52 +23,6 @@
     a {
       text-decoration: none;
       color: inherit;
-    }
-
-    /* --------------------------
-       TOP NAV & HAMBURGER
-    --------------------------- */
-    .top-nav {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      background-color: #000;
-      padding: 8px 10px;
-    }
-    .hamburger {
-      width: 30px;
-      height: 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      cursor: pointer;
-    }
-    .bar {
-      height: 4px;
-      background-color: #fff;
-      border-radius: 2px;
-    }
-    .dropdown {
-      position: absolute;
-      top: 48px;
-      right: 10px;
-      background-color: #111;
-      border: 1px solid #333;
-      border-radius: 4px;
-      padding: 5px;
-      display: none;
-      z-index: 999;
-    }
-    .dropdown a {
-      display: block;
-      color: #fff;
-      padding: 5px 0;
-    }
-    .dropdown a:hover {
-      color: #00BFFF;
-    }
-    .show {
-      display: block;
     }
 
     /* --------------------------
@@ -94,33 +48,44 @@
     }
 
     /* --------------------------
-       DASHBOARD
+       DASHBOARD (WHITE BORDER, TABULAR LAYOUT)
     --------------------------- */
     .dashboard {
       width: 80%;  
       max-width: 560px;
       margin: 0 auto 20px auto;
-      border: 1px solid #fff;
+      border: 1px solid #fff; /* White border */
       border-radius: 8px;
       padding: 20px;
-      text-align: left;
+      text-align: center; /* We'll center the table container as well */
+    }
+    .dashboard-table {
+      display: table;
+      margin: 0 auto; /* Center the table itself */
     }
     .dashboard-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 10px 0;
+      display: table-row;
     }
-    .dashboard-label {
+    .dashboard-cell-label,
+    .dashboard-cell-count {
+      display: table-cell;
+      padding: 8px 15px;
+      text-align: right; /* Right-align text in both columns */
+      vertical-align: middle;
+    }
+    .dashboard-cell-label {
       font-size: 1.1em;
     }
-    .dashboard-count {
+    .dashboard-cell-count {
       font-size: 1.5em;
       font-weight: bold;
+      width: 60px; /* Enough space for numbers to align nicely */
     }
+
+    /* Submit link now outside the dashboard */
     .submit-link {
-      margin-top: 15px;
       text-align: center;
+      margin-bottom: 20px;
     }
     .button {
       display: inline-block;
@@ -165,24 +130,19 @@
     }
 
     /* --------------------------
-       FINISHERS (NO PHOTOS)
+       FINISHERS
     --------------------------- */
-    .finishers-photos {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      gap: 20px;
-      max-width: 1200px;
+    .finishers {
+      max-width: 700px;
       margin: 20px auto 40px auto;
       padding: 10px;
-      text-align: center;
+      text-align: left;
     }
-    .finishers {
-      flex: 0 0 200px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
+    .finishers h3 {
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 1.3em;
+      color: #fff;
     }
     .name-list {
       display: flex;
@@ -195,49 +155,14 @@
       background-color: #1a1a1a;
       padding: 5px 10px;
       border-radius: 4px;
-      text-align: left;
-      width: 100%;
     }
 
     /* --------------------------
        FOOTER
+       (We keep it hidden or removed)
     --------------------------- */
     .footer {
-      background-color: #111;
-      padding: 20px;
-      text-align: center;
-    }
-    .footer h3 {
-      margin-bottom: 10px;
-      font-size: 1.2em;
-      color: #fff;
-    }
-    .social-media {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: center;
-      margin-bottom: 10px;
-    }
-    .social-link {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      color: #00BFFF;
-      font-weight: bold;
-      transition: color 0.3s;
-    }
-    .social-link:hover {
-      color: #87CEFA;
-    }
-    .social-icon {
-      width: 24px;
-      height: 24px;
-    }
-    .email {
-      color: #ccc;
-      font-size: 0.95em;
-      margin-top: 5px;
+      display: none;
     }
 
     /* --------------------------
@@ -246,7 +171,8 @@
     @media (max-width: 600px) {
       .dashboard,
       .summary,
-      .disclaimer {
+      .disclaimer,
+      .finishers {
         width: 90%;
         margin: 10px auto;
         padding: 15px;
@@ -257,181 +183,143 @@
       .logo {
         max-width: 70%;
       }
-      .finishers-photos {
-        flex-direction: column;
-        align-items: center;
-        margin: 10px auto 20px auto;
-      }
-      .finishers {
-        width: 80%;
-        margin-bottom: 15px;
+      .dashboard-cell-count {
+        width: 50px;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- TOP NAV -->
-  <div class="top-nav">
-    <div class="hamburger" onclick="toggleMenu()">
-      <div class="bar"></div>
-      <div class="bar"></div>
-      <div class="bar"></div>
-    </div>
-    <div id="myDropdown" class="dropdown">
-      <a href="stories.html">Stories</a>
-      <a href="our-story.html">Our Story &amp; Vision</a>
-      <a href="resources.html">Resources</a>
-      <a href="shared-lands.html">Shared Lands</a>
-    </div>
-  </div>
-
   <!-- HEADER -->
   <div class="header">
-    <div class="site-title">5 10 50 Hike Challenge</div>
-    <img class="logo" src="logo2.jpg" alt="5 10 50 Hike Challenge Logo" />
+    <div class="site-title">hikechallenge.org</div>
+    <img class="logo" src="logo2.jpg" alt="hikechallenge.org Logo" />
   </div>
 
-  <!-- DASHBOARD -->
+  <!-- DASHBOARD (white border, table layout) -->
   <div class="dashboard">
-    <div class="dashboard-row">
-      <div class="dashboard-label">5 Mile Hikes</div>
-      <div class="dashboard-count" id="fiveMileCount">0</div>
+    <div class="dashboard-table">
+      <div class="dashboard-row">
+        <div class="dashboard-cell-label">5 Mile Hikes</div>
+        <div class="dashboard-cell-count" id="fiveMileCount">0</div>
+      </div>
+      <div class="dashboard-row">
+        <div class="dashboard-cell-label">10 Mile Hikes</div>
+        <div class="dashboard-cell-count" id="tenMileCount">0</div>
+      </div>
+      <div class="dashboard-row">
+        <div class="dashboard-cell-label">50 Mile Hikes</div>
+        <div class="dashboard-cell-count" id="fiftyMileCount">0</div>
+      </div>
+      <div class="dashboard-row">
+        <div class="dashboard-cell-label">Total Miles Hiked</div>
+        <div class="dashboard-cell-count" id="totalMilesHiked">0</div>
+      </div>
     </div>
-    <div class="dashboard-row">
-      <div class="dashboard-label">10 Mile Hikes</div>
-      <div class="dashboard-count" id="tenMileCount">0</div>
-    </div>
-    <div class="dashboard-row">
-      <div class="dashboard-label">50 Mile Hikes</div>
-      <div class="dashboard-count" id="fiftyMileCount">0</div>
-    </div>
-    <div class="submit-link">
-      <!-- Google Form URL from your previous code snippet -->
-      <a class="button" href="https://docs.google.com/forms/d/e/1FAIpQLScI2HN5KbJOdWM2WBOHyMxiU0ML5muFDZ3KDP9nkqS3sRoWwg/viewform?usp=dialog" target="_blank">
-        Submit Your Hike
-      </a>
-    </div>
+  </div>
+
+  <!-- Submit button now outside the dashboard -->
+  <div class="submit-link">
+    <a class="button" href="https://docs.google.com/forms/d/e/1FAIpQLScI2HN5KbJOdWM2WBOHyMxiU0ML5muFDZ3KDP9nkqS3sRoWwg/viewform?usp=dialog" target="_blank">
+      Submit Your Hike
+    </a>
   </div>
 
   <!-- SUMMARY -->
   <div class="summary">
     <p>
-      In 2025 we have started this 5 10 50 Hike Challenge with the vision that it becomes a
+      In 2025 we started hikechallenge.org with the vision that it becomes a
       nationwide movement to inspire people across a range of fitness levels to get into Nature,
       experience hiking, improve our Health, build Community, and grow in Confidence.
     </p>
     <p>
       This website will keep track of the total number of hike finishers in each of the 3 distances.
-      It is our hope that 5 10 50 Hike Challenge participants share their stories with others so the
+      It is our hope that hikechallenge.org participants share their stories with others so the
       movement and its benefits spread.
     </p>
     <p>
-      Remember—after you have completed your hike to <strong>SUBMIT IT</strong> so that your hike,
-      your name, and your story can be posted on our finisher board.
+      Remember—after you have completed your hike to Submit Your Hike so that it is counted
+      and your name shows up on our Finisher list.
     </p>
   </div>
 
-  <!-- LIABILITY DISCLAIMER -->
+  <!-- DISCLAIMER -->
   <div class="disclaimer">
     <p>
-      <strong>Disclaimer:</strong> Participation in the 5 10 50 Hike Challenge is completely voluntary.
-      By choosing to hike, you understand and accept that you do so at your own risk. 5 10 50 Hike
-      Challenge is not liable for any accidents, injuries, or other incidents that may occur during
-      your hike. If you have any concerns about your health or ability to participate, please consult
-      a medical professional before starting.
+      By submitting YOUR HIKE to hikechallenge.org you acknowledge that your hike was completely voluntary.
+      You understand and accept that you do so at your own risk. hikechallenge.org not liable for any
+      accidents, injuries, or other incidents that may occur during your hike. If you have any concerns
+      about your health or ability to participate, please consult a medical professional before starting.
     </p>
   </div>
 
-  <!-- FINISHERS (NO PHOTOS) -->
-  <div class="finishers-photos">
-    <div class="finishers">
-      <h3>Finishers</h3>
-      <div class="name-list" id="nameList"></div>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <div class="footer">
-    <h3>Connect with Us</h3>
-    <div class="social-media">
-      <a href="#" target="_blank" class="social-link">
-        <img 
-          src="https://cdn-icons-png.flaticon.com/512/733/733547.png"
-          alt="Facebook"
-          class="social-icon"
-        />
-        @test1
-      </a>
-      <a href="#" target="_blank" class="social-link">
-        <img 
-          src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png"
-          alt="Instagram"
-          class="social-icon"
-        />
-        @test2
-      </a>
-      <a href="#" target="_blank" class="social-link">
-        <img 
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/X_logo_2023.svg/240px-X_logo_2023.svg.png"
-          alt="X"
-          class="social-icon"
-        />
-        @test3
-      </a>
-      <a href="#" target="_blank" class="social-link">
-        <img 
-          src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png"
-          alt="TikTok"
-          class="social-icon"
-        />
-        @test4
-      </a>
-      <a href="#" target="_blank" class="social-link">
-        <img 
-          src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png"
-          alt="YouTube"
-          class="social-icon"
-        />
-        test5
-      </a>
-      <a href="#" target="_blank" class="social-link">
-        <img 
-          src="https://cdn-icons-png.flaticon.com/512/1384/1384014.png"
-          alt="LinkedIn"
-          class="social-icon"
-        />
-        test6
-      </a>
-    </div>
-    <div class="email">
-      Email:
-      <a href="mailto:jake@51050HikeChallenge.org" style="color: #00BFFF;">
-        jake@51050HikeChallenge.org
-      </a>
-    </div>
+  <!-- FINISHERS -->
+  <div class="finishers">
+    <h3>Finishers</h3>
+    <div class="name-list" id="nameList"></div>
   </div>
 
   <script>
     /*************************************************************
-     * DO_GET_URL from your Apps Script Web App
-     * Replaced with your actual /exec endpoint
+     * DO_GET_URL from your Apps Script (ends in /exec)
      *************************************************************/
     const DO_GET_URL = "https://script.google.com/macros/s/AKfycbwDfy9-YWF4J8AUX-L-lvF_oeDWER66K3p9CnM2cPvUmTPrkte45PkZ7ixMvgHcst5fMg/exec";
 
     /*************************************************************
-     * HAMBURGER MENU TOGGLE
+     * State Abbreviations (if needed)
      *************************************************************/
-    function toggleMenu() {
-      document.getElementById('myDropdown').classList.toggle('show');
-    }
-    window.onclick = function(e) {
-      if (!e.target.matches('.hamburger') && !e.target.matches('.bar')) {
-        const dropdown = document.getElementById('myDropdown');
-        if (dropdown.classList.contains('show')) {
-          dropdown.classList.remove('show');
-        }
-      }
+    const stateAbbreviations = {
+      "Alabama": "AL",
+      "Alaska": "AK",
+      "Arizona": "AZ",
+      "Arkansas": "AR",
+      "California": "CA",
+      "Colorado": "CO",
+      "Connecticut": "CT",
+      "Delaware": "DE",
+      "Florida": "FL",
+      "Georgia": "GA",
+      "Hawaii": "HI",
+      "Idaho": "ID",
+      "Illinois": "IL",
+      "Indiana": "IN",
+      "Iowa": "IA",
+      "Kansas": "KS",
+      "Kentucky": "KY",
+      "Louisiana": "LA",
+      "Maine": "ME",
+      "Maryland": "MD",
+      "Massachusetts": "MA",
+      "Michigan": "MI",
+      "Minnesota": "MN",
+      "Mississippi": "MS",
+      "Missouri": "MO",
+      "Montana": "MT",
+      "Nebraska": "NE",
+      "Nevada": "NV",
+      "New Hampshire": "NH",
+      "New Jersey": "NJ",
+      "New Mexico": "NM",
+      "New York": "NY",
+      "North Carolina": "NC",
+      "North Dakota": "ND",
+      "Ohio": "OH",
+      "Oklahoma": "OK",
+      "Oregon": "OR",
+      "Pennsylvania": "PA",
+      "Rhode Island": "RI",
+      "South Carolina": "SC",
+      "South Dakota": "SD",
+      "Tennessee": "TN",
+      "Texas": "TX",
+      "Utah": "UT",
+      "Vermont": "VT",
+      "Virginia": "VA",
+      "Washington": "WA",
+      "West Virginia": "WV",
+      "Wisconsin": "WI",
+      "Wyoming": "WY"
     };
 
     /*************************************************************
@@ -451,15 +339,20 @@
         document.getElementById('nameList').innerHTML = "";
 
         // Tally & display
-        submissions.forEach(entry => {
+        submissions.forEach((entry, index) => {
           if (entry.hikeLength === "5 Mile Hike") fiveCount++;
           else if (entry.hikeLength === "10 Mile Hike") tenCount++;
           else if (entry.hikeLength === "50 Mile Hike") fiftyCount++;
 
-          // Add name to finisher list
+          // Convert state to abbreviation if possible
+          const stateAbbrev = stateAbbreviations[entry.state] || entry.state;
+          // The finisher's position is index+1 (1-based)
+          const finisherNumber = index + 1;
+
+          // e.g., "1) Jacob Summerhays - CA"
           const nameDiv = document.createElement('div');
           nameDiv.classList.add('name-item');
-          nameDiv.textContent = entry.name + " (" + entry.hikeLength.replace(" Hike","") + ")";
+          nameDiv.textContent = `${finisherNumber}) ${entry.name} - ${stateAbbrev}`;
           document.getElementById('nameList').appendChild(nameDiv);
         });
 
@@ -467,6 +360,10 @@
         document.getElementById('fiveMileCount').textContent = fiveCount;
         document.getElementById('tenMileCount').textContent = tenCount;
         document.getElementById('fiftyMileCount').textContent = fiftyCount;
+
+        // Calculate total miles
+        const totalMiles = (fiveCount * 5) + (tenCount * 10) + (fiftyCount * 50);
+        document.getElementById('totalMilesHiked').textContent = totalMiles;
 
       } catch (err) {
         console.error("Failed to fetch data from Sheets:", err);
