@@ -131,6 +131,7 @@
       border-radius: 4px;
       cursor: pointer;
       transition: background 0.3s;
+      text-decoration: none;
     }
     .button:hover {
       background-color: #87CEFA;
@@ -161,56 +162,6 @@
       font-size: 0.9em;
       line-height: 1.4;
       text-align: left;
-    }
-
-    /* --------------------------
-       FORM CONTAINER (HIDDEN)
-    --------------------------- */
-    .form-container {
-      max-width: 700px;
-      margin: 30px auto;
-      padding: 20px;
-      border: 1px solid #fff;
-      border-radius: 8px;
-      display: none;
-    }
-    .form-container h2 {
-      text-align: center;
-      margin-bottom: 15px;
-    }
-    .form-disclaimer {
-      color: #ccc;
-      font-size: 0.9em;
-      line-height: 1.4;
-      margin-bottom: 15px;
-    }
-    .form-group {
-      margin-bottom: 10px;
-    }
-    .form-group label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
-    .form-group input[type="text"],
-    .form-group input[type="email"],
-    .form-group input[type="file"],
-    .form-group select {
-      width: 100%;
-      padding: 8px;
-    }
-    .preview-container {
-      margin-top: 5px;
-    }
-    .preview-container img {
-      max-width: 100px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      display: none;
-    }
-    .form-actions {
-      text-align: center;
-      margin-top: 10px;
     }
 
     /* --------------------------
@@ -302,8 +253,7 @@
     @media (max-width: 600px) {
       .dashboard,
       .summary,
-      .disclaimer,
-      .form-container {
+      .disclaimer {
         width: 90%;
         margin: 10px auto;
         padding: 15px;
@@ -329,7 +279,7 @@
 </head>
 <body>
 
-  <!-- NAVBAR WITH HAMBURGER -->
+  <!-- TOP NAV -->
   <div class="top-nav">
     <div class="hamburger" onclick="toggleMenu()">
       <div class="bar"></div>
@@ -344,7 +294,7 @@
     </div>
   </div>
 
-  <!-- HEADER (TITLE & LOGO) -->
+  <!-- HEADER -->
   <div class="header">
     <div class="site-title">5 10 50 Hike Challenge</div>
     <img class="logo" src="logo2.jpg" alt="5 10 50 Hike Challenge Logo" />
@@ -365,11 +315,14 @@
       <div class="dashboard-count" id="fiftyMileCount">0</div>
     </div>
     <div class="submit-link">
-      <button class="button" onclick="showForm()">Submit Your Hike</button>
+      <!-- Google Form URL inserted here -->
+      <a class="button" href="https://docs.google.com/forms/d/e/1FAIpQLScI2HN5KbJOdWM2WBOHyMxiU0ML5muFDZ3KDP9nkqS3sRoWwg/viewform?usp=dialog" target="_blank">
+        Submit Your Hike
+      </a>
     </div>
   </div>
 
-  <!-- SUMMARY PARAGRAPHS -->
+  <!-- SUMMARY -->
   <div class="summary">
     <p>
       In 2025 we have started this 5 10 50 Hike Challenge with the vision that it becomes a
@@ -396,59 +349,6 @@
       your hike. If you have any concerns about your health or ability to participate, please consult
       a medical professional before starting.
     </p>
-  </div>
-
-  <!-- FORM CONTAINER (HIDDEN) -->
-  <div id="submitHikeForm" class="form-container">
-    <h2>Submit Your Hike</h2>
-    <div class="form-disclaimer">
-      By submitting this form, you agree that 5 10 50 Hike Challenge may count your hike 
-      toward our community goal, and you confirm that you have completed the selected hike length. 
-      If a photo is uploaded, you give 5 10 50 Hike Challenge permission to share it in marketing materials.
-    </div>
-    <!-- The form uses onsubmit to call handleFormSubmission -->
-    <form onsubmit="handleFormSubmission(event)">
-      <p style="color: #ccc; font-size: 0.9em;">
-        All fields marked "(required)" must be filled out. Photo is optional.
-      </p>
-      <div class="form-group">
-        <label for="name">Name (required):</label>
-        <input type="text" id="name" name="name" required />
-      </div>
-      <div class="form-group">
-        <label for="state">State of Hike (required):</label>
-        <select id="state" name="state" required>
-          <option value="">-- Select State --</option>
-          <option value="CA">California</option>
-          <option value="CO">Colorado</option>
-          <!-- Add all states as needed -->
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="email">Email (required - just to verify it's you; we will delete after that):</label>
-        <input type="email" id="email" name="email" required />
-      </div>
-      <div class="form-group">
-        <label for="hikeLength">Hike Length (required):</label>
-        <select id="hikeLength" name="hikeLength" required>
-          <option value="">-- Select One --</option>
-          <option value="5 Mile Hike">5 Mile Hike</option>
-          <option value="10 Mile Hike">10 Mile Hike</option>
-          <option value="50 Mile Hike">50 Mile Hike</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="photo">Photo (optional):</label>
-        <input type="file" id="photo" name="photo" accept="image/*" />
-        <div class="preview-container">
-          <img id="photoPreview" alt="Preview" />
-        </div>
-      </div>
-      <div class="form-actions">
-        <button type="submit" class="button">Submit</button>
-        <button type="button" class="button" onclick="hideForm()">Cancel</button>
-      </div>
-    </form>
   </div>
 
   <!-- FINISHERS & PHOTOS -->
@@ -526,10 +426,10 @@
 
   <script>
     /*************************************************************
-     * 1) YOUR APPS SCRIPT WEB APP URL
-     *    (Ends in /exec)
+     * 1) DO_GET_URL from Apps Script
+     *    This is your deployed Web App endpoint ending in /exec
      *************************************************************/
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxPMUMx4znzCrcFPdoQC5Tt7wHmj9Pgt4z2bt7VjXc6TfqMnt1yED-dcna51yCwhv6rlg/exec";
+    const DO_GET_URL = "https://script.google.com/macros/s/AKfycbwDfy9-YWF4J8AUX-L-lvF_oeDWER66K3p9CnM2cPvUmTPrkte45PkZ7ixMvgHcst5fMg/exec";
 
     /*************************************************************
      * 2) HAMBURGER MENU TOGGLE
@@ -547,90 +447,11 @@
     };
 
     /*************************************************************
-     * 3) SHOW/HIDE THE FORM
-     *************************************************************/
-    function showForm() {
-      document.getElementById('submitHikeForm').style.display = 'block';
-      document.getElementById('submitHikeForm').scrollIntoView({ behavior: 'smooth' });
-    }
-    function hideForm() {
-      document.getElementById('submitHikeForm').style.display = 'none';
-    }
-
-    /*************************************************************
-     * 4) PHOTO PREVIEW LOGIC (OPTIONAL)
-     *************************************************************/
-    const photoInput = document.getElementById('photo');
-    const photoPreview = document.getElementById('photoPreview');
-    photoInput.addEventListener('change', function() {
-      const file = this.files && this.files[0];
-      if (!file) {
-        photoPreview.style.display = 'none';
-        photoPreview.src = '';
-        return;
-      }
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        photoPreview.src = e.target.result;
-        photoPreview.style.display = 'block';
-      };
-      reader.readAsDataURL(file);
-    });
-
-    /*************************************************************
-     * 5) HANDLE FORM SUBMISSION (POSTS TO APPS SCRIPT)
-     *************************************************************/
-    function handleFormSubmission(event) {
-      event.preventDefault(); // Prevent page reload
-      submitHikeToSheet();
-    }
-
-    async function submitHikeToSheet() {
-      const name = document.getElementById('name').value.trim();
-      const state = document.getElementById('state').value;
-      const email = document.getElementById('email').value.trim();
-      const hikeLength = document.getElementById('hikeLength').value;
-
-      const data = {
-        name,
-        state,
-        email,
-        hikeLength,
-        photoURL: ""
-      };
-
-      try {
-        const response = await fetch(WEB_APP_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(data)
-        });
-        const result = await response.json();
-        if (result.status === "success") {
-          alert("Hike recorded in Google Sheets!");
-          hideForm();
-          // Clear the form
-          document.querySelector('#submitHikeForm form').reset();
-          photoPreview.style.display = 'none';
-          photoPreview.src = '';
-          // Refresh data from Sheets
-          fetchHikeDataFromSheet();
-        } else {
-          alert("Error: " + result.message);
-        }
-      } catch (err) {
-        alert("Request failed: " + err);
-      }
-    }
-
-    /*************************************************************
-     * 6) FETCH DATA FROM SHEETS (GETS FROM APPS SCRIPT)
+     * 3) FETCH DATA FROM SHEETS (via doGet) TO UPDATE DASHBOARD
      *************************************************************/
     async function fetchHikeDataFromSheet() {
       try {
-        const response = await fetch(WEB_APP_URL); // GET request
+        const response = await fetch(DO_GET_URL); // GET request
         const submissions = await response.json(); // array of objects
 
         // Reset counters
