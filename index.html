@@ -5,6 +5,7 @@
   <!-- Responsive Meta Tag for Mobile -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>hikechallenge.org</title>
+
   <style>
     /* --------------------------
        GLOBAL RESETS & BASE
@@ -82,7 +83,9 @@
       width: 60px;
     }
 
-    /* Submit link outside the dashboard */
+    /* --------------------------
+       SUBMIT BUTTON (Outside Dashboard)
+    --------------------------- */
     .submit-link {
       text-align: center;
       margin-bottom: 20px;
@@ -130,7 +133,7 @@
     }
 
     /* --------------------------
-       FINISHERS
+       FINISHERS (Vertical List Layout)
     --------------------------- */
     .finishers {
       max-width: 700px;
@@ -144,21 +147,26 @@
       font-size: 1.3em;
       color: #fff;
     }
-    .name-list {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      width: 100%;
-      word-wrap: break-word;
+    .finishers-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
     }
-    .name-item {
+    .finishers-list li {
       background-color: #1a1a1a;
-      padding: 5px 10px;
-      border-radius: 4px;
+      padding: 10px;
+      margin-bottom: 8px;
+      border-radius: 6px;
+      text-align: center;
+      font-size: 1em;
+      transition: background-color 0.2s ease;
+    }
+    .finishers-list li:hover {
+      background-color: #333;
     }
 
     /* --------------------------
-       FOOTER (HIDDEN)
+       FOOTER (Hidden)
     --------------------------- */
     .footer {
       display: none;
@@ -196,7 +204,7 @@
     <img class="logo" src="logo2.jpg" alt="hikechallenge.org Logo" />
   </div>
 
-  <!-- DASHBOARD (white border, table layout, centered) -->
+  <!-- DASHBOARD (with white border, tabular layout, centered) -->
   <div class="dashboard">
     <div class="dashboard-table">
       <div class="dashboard-row">
@@ -218,7 +226,7 @@
     </div>
   </div>
 
-  <!-- Submit button now placed below the dashboard -->
+  <!-- Submit button placed below the dashboard -->
   <div class="submit-link">
     <a class="button" href="https://docs.google.com/forms/d/e/1FAIpQLScI2HN5KbJOdWM2WBOHyMxiU0ML5muFDZ3KDP9nkqS3sRoWwg/viewform?usp=dialog" target="_blank">
       Submit Your Hike
@@ -228,18 +236,13 @@
   <!-- SUMMARY -->
   <div class="summary">
     <p>
-      In 2025 we started hikechallenge.org with the vision that it becomes a
-      nationwide movement to inspire people across a range of fitness levels to get into Nature,
-      experience hiking, improve our Health, build Community, and grow in Confidence.
+      In 2025 we started hikechallenge.org with the vision that it becomes a nationwide movement to inspire people of all fitness levels to reconnect with nature, experience the joy of hiking, improve our Health, build Community, and grow in Confidence.
     </p>
     <p>
-      This website will keep track of the total number of hike finishers in each of the 3 distances.
-      It is our hope that hikechallenge.org participants share their stories with others so the
-      movement and its benefits spread.
+      Our challenge invites you to embark on three distinct journeys—a 5‑mile, a 10‑mile, and a 50‑mile hike. Please note that the Hike Count Dashboard will only count 1 hike per person in each of the hike distances. Every single hike is a unique personal milestone that adds to our collective journey.
     </p>
     <p>
-      Remember—after you have completed your hike to Submit Your Hike so that it is counted
-      and your name shows up on our Finisher list.
+      Once you’ve completed your hike, please submit it so it’s recorded on the Hike Count Dashboard and so your name shows up on our Finishers list—and then think about whom else might enjoy hiking as well. Your example can help spread the benefits of Health, Nature, Community, and Confidence even further.
     </p>
   </div>
 
@@ -253,10 +256,10 @@
     </p>
   </div>
 
-  <!-- FINISHERS -->
+  <!-- FINISHERS (Vertical List Layout) -->
   <div class="finishers">
     <h3>Finishers</h3>
-    <div class="name-list" id="nameList"></div>
+    <ul class="finishers-list" id="nameList"></ul>
   </div>
 
   <script>
@@ -322,68 +325,77 @@
     };
 
     /*************************************************************
-     * Function to Render the Dashboard
-     *************************************************************/
-    function renderDashboard(submissions) {
-      // Reset counters
-      let fiveCount = 0;
-      let tenCount = 0;
-      let fiftyCount = 0;
-      // Clear existing list
-      const nameListElem = document.getElementById('nameList');
-      nameListElem.innerHTML = "";
-
-      // Process each submission
-      submissions.forEach((entry, index) => {
-        if (entry.hikeLength === "5 Mile Hike") fiveCount++;
-        else if (entry.hikeLength === "10 Mile Hike") tenCount++;
-        else if (entry.hikeLength === "50 Mile Hike") fiftyCount++;
-
-        // For display, only show the date (YYYY-MM-DD)
-        const dateOnly = entry.timestamp.split("T")[0];
-        // Finisher number is based on index (1-based)
-        const finisherNumber = index + 1;
-        // Example: "1) Jacob Summerhays - 2025-03-21"
-        const nameDiv = document.createElement('div');
-        nameDiv.classList.add('name-item');
-        nameDiv.textContent = `${finisherNumber}) ${entry.name} - ${dateOnly}`;
-        nameListElem.appendChild(nameDiv);
-      });
-
-      // Update counters on the dashboard
-      document.getElementById('fiveMileCount').textContent = fiveCount;
-      document.getElementById('tenMileCount').textContent = tenCount;
-      document.getElementById('fiftyMileCount').textContent = fiftyCount;
-
-      // Calculate total miles
-      const totalMiles = (fiveCount * 5) + (tenCount * 10) + (fiftyCount * 50);
-      document.getElementById('totalMilesHiked').textContent = totalMiles;
-    }
-
-    /*************************************************************
-     * FETCH DATA FROM SHEETS (doGet) TO UPDATE DASHBOARD
+     * FETCH DATA FROM SHEETS (doGet) AND RENDER DASHBOARD & FINISHERS
      *************************************************************/
     async function fetchHikeDataFromSheet() {
       try {
-        const response = await fetch(DO_GET_URL); // GET request
-        const submissions = await response.json(); // array of objects
+        const response = await fetch(DO_GET_URL);
+        const submissions = await response.json();
 
-        // Cache data locally to avoid showing zeros on subsequent visits
-        localStorage.setItem("hikeDashboardData", JSON.stringify(submissions));
-        renderDashboard(submissions);
+        // Filter out duplicates: only one hike per person per distance
+        const uniqueSubmissions = [];
+        const seen = {};
+        submissions.forEach(entry => {
+          const key = entry.name.trim().toLowerCase() + "_" + entry.hikeLength;
+          if (!seen[key]) {
+            seen[key] = true;
+            uniqueSubmissions.push(entry);
+          }
+        });
+
+        // Sort submissions in ascending order by timestamp (earliest first)
+        uniqueSubmissions.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+        
+        renderDashboard(uniqueSubmissions);
       } catch (err) {
         console.error("Failed to fetch data from Sheets:", err);
       }
     }
 
-    // On page load, first try to render cached data, then fetch new data
-    window.onload = function() {
-      const cached = localStorage.getItem("hikeDashboardData");
-      if (cached) {
-        renderDashboard(JSON.parse(cached));
-      }
-      fetchHikeDataFromSheet();
-    };
+    function renderDashboard(submissions) {
+      // Reset counters
+      let fiveCount = 0;
+      let tenCount = 0;
+      let fiftyCount = 0;
+      
+      // Clear existing finishers list
+      const nameListElem = document.getElementById('nameList');
+      nameListElem.innerHTML = "";
+
+      // Process each unique submission
+      submissions.forEach((entry, index) => {
+        if (entry.hikeLength === "5 Mile Hike") fiveCount++;
+        else if (entry.hikeLength === "10 Mile Hike") tenCount++;
+        else if (entry.hikeLength === "50 Mile Hike") fiftyCount++;
+
+        // Create a Date object and extract Month and Year
+        const dateObj = new Date(entry.timestamp);
+        const month = dateObj.toLocaleString('default', { month: 'long' });
+        const year = dateObj.getFullYear();
+        
+        // Get state abbreviation if available
+        const stateDisplay = stateAbbreviations[entry.state] || entry.state;
+        
+        // Finisher number (1-based order)
+        const finisherNumber = index + 1;
+        // Format: "1) Jacob Summerhays - March 2025 - CA"
+        const li = document.createElement('li');
+        li.textContent = `${finisherNumber}) ${entry.name} - ${month} ${year} - ${stateDisplay}`;
+        nameListElem.appendChild(li);
+      });
+
+      // Update dashboard counters
+      document.getElementById('fiveMileCount').textContent = fiveCount;
+      document.getElementById('tenMileCount').textContent = tenCount;
+      document.getElementById('fiftyMileCount').textContent = fiftyCount;
+
+      // Calculate total miles and update
+      const totalMiles = (fiveCount * 5) + (tenCount * 10) + (fiftyCount * 50);
+      document.getElementById('totalMilesHiked').textContent = totalMiles;
+    }
+
+    // On page load, fetch existing data from Sheets
+    window.onload = fetchHikeDataFromSheet;
   </script>
 </body>
 </html>
