@@ -5,7 +5,6 @@
   <!-- Responsive Meta Tag for Mobile -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>hikechallenge.org</title>
-
   <style>
     /* --------------------------
        GLOBAL RESETS & BASE
@@ -48,20 +47,20 @@
     }
 
     /* --------------------------
-       DASHBOARD (WHITE BORDER, TABULAR LAYOUT)
+       DASHBOARD (WHITE BORDER, TABULAR LAYOUT, CENTERED)
     --------------------------- */
     .dashboard {
       width: 80%;  
       max-width: 560px;
       margin: 0 auto 20px auto;
-      border: 1px solid #fff; /* White border */
+      border: 1px solid #fff;
       border-radius: 8px;
       padding: 20px;
-      text-align: center; /* We'll center the table container as well */
+      text-align: center;
     }
     .dashboard-table {
       display: table;
-      margin: 0 auto; /* Center the table itself */
+      margin: 0 auto;
     }
     .dashboard-row {
       display: table-row;
@@ -70,19 +69,20 @@
     .dashboard-cell-count {
       display: table-cell;
       padding: 8px 15px;
-      text-align: right; /* Right-align text in both columns */
       vertical-align: middle;
     }
     .dashboard-cell-label {
       font-size: 1.1em;
+      text-align: right;
     }
     .dashboard-cell-count {
       font-size: 1.5em;
       font-weight: bold;
-      width: 60px; /* Enough space for numbers to align nicely */
+      text-align: right;
+      width: 60px;
     }
 
-    /* Submit link below the dashboard */
+    /* Submit link outside the dashboard */
     .submit-link {
       text-align: center;
       margin-bottom: 20px;
@@ -158,7 +158,7 @@
     }
 
     /* --------------------------
-       FOOTER (Hidden)
+       FOOTER (HIDDEN)
     --------------------------- */
     .footer {
       display: none;
@@ -196,7 +196,7 @@
     <img class="logo" src="logo2.jpg" alt="hikechallenge.org Logo" />
   </div>
 
-  <!-- DASHBOARD (white border, table layout) -->
+  <!-- DASHBOARD (white border, table layout, centered) -->
   <div class="dashboard">
     <div class="dashboard-table">
       <div class="dashboard-row">
@@ -218,7 +218,7 @@
     </div>
   </div>
 
-  <!-- Submit button below the dashboard -->
+  <!-- Submit button now placed below the dashboard -->
   <div class="submit-link">
     <a class="button" href="https://docs.google.com/forms/d/e/1FAIpQLScI2HN5KbJOdWM2WBOHyMxiU0ML5muFDZ3KDP9nkqS3sRoWwg/viewform?usp=dialog" target="_blank">
       Submit Your Hike
@@ -266,6 +266,101 @@
     const DO_GET_URL = "https://script.google.com/macros/s/AKfycbwDfy9-YWF4J8AUX-L-lvF_oeDWER66K3p9CnM2cPvUmTPrkte45PkZ7ixMvgHcst5fMg/exec";
 
     /*************************************************************
+     * State Abbreviations (if needed)
+     *************************************************************/
+    const stateAbbreviations = {
+      "Alabama": "AL",
+      "Alaska": "AK",
+      "Arizona": "AZ",
+      "Arkansas": "AR",
+      "California": "CA",
+      "Colorado": "CO",
+      "Connecticut": "CT",
+      "Delaware": "DE",
+      "Florida": "FL",
+      "Georgia": "GA",
+      "Hawaii": "HI",
+      "Idaho": "ID",
+      "Illinois": "IL",
+      "Indiana": "IN",
+      "Iowa": "IA",
+      "Kansas": "KS",
+      "Kentucky": "KY",
+      "Louisiana": "LA",
+      "Maine": "ME",
+      "Maryland": "MD",
+      "Massachusetts": "MA",
+      "Michigan": "MI",
+      "Minnesota": "MN",
+      "Mississippi": "MS",
+      "Missouri": "MO",
+      "Montana": "MT",
+      "Nebraska": "NE",
+      "Nevada": "NV",
+      "New Hampshire": "NH",
+      "New Jersey": "NJ",
+      "New Mexico": "NM",
+      "New York": "NY",
+      "North Carolina": "NC",
+      "North Dakota": "ND",
+      "Ohio": "OH",
+      "Oklahoma": "OK",
+      "Oregon": "OR",
+      "Pennsylvania": "PA",
+      "Rhode Island": "RI",
+      "South Carolina": "SC",
+      "South Dakota": "SD",
+      "Tennessee": "TN",
+      "Texas": "TX",
+      "Utah": "UT",
+      "Vermont": "VT",
+      "Virginia": "VA",
+      "Washington": "WA",
+      "West Virginia": "WV",
+      "Wisconsin": "WI",
+      "Wyoming": "WY"
+    };
+
+    /*************************************************************
+     * Function to Render the Dashboard
+     *************************************************************/
+    function renderDashboard(submissions) {
+      // Reset counters
+      let fiveCount = 0;
+      let tenCount = 0;
+      let fiftyCount = 0;
+      // Clear existing list
+      const nameListElem = document.getElementById('nameList');
+      nameListElem.innerHTML = "";
+
+      // Process each submission
+      submissions.forEach((entry, index) => {
+        if (entry.hikeLength === "5 Mile Hike") fiveCount++;
+        else if (entry.hikeLength === "10 Mile Hike") tenCount++;
+        else if (entry.hikeLength === "50 Mile Hike") fiftyCount++;
+
+        // For display, only show the date (YYYY-MM-DD)
+        const dateOnly = entry.timestamp.split("T")[0];
+        // Finisher number is based on index (1-based)
+        const finisherNumber = index + 1;
+        // Example: "1) Jacob Summerhays - 2025-03-21"
+        const nameDiv = document.createElement('div');
+        nameDiv.classList.add('name-item');
+        nameDiv.textContent = `${finisherNumber}) ${entry.name} - ${dateOnly}`;
+        nameListElem.appendChild(nameDiv);
+      });
+
+      // Update counters on the dashboard
+      document.getElementById('fiveMileCount').textContent = fiveCount;
+      document.getElementById('tenMileCount').textContent = tenCount;
+      document.getElementById('fiftyMileCount').textContent = fiftyCount;
+
+      // Calculate total miles
+      const totalMiles = (fiveCount * 5) + (tenCount * 10) + (fiftyCount * 50);
+      document.getElementById('totalMilesHiked').textContent = totalMiles;
+    }
+
+    /*************************************************************
      * FETCH DATA FROM SHEETS (doGet) TO UPDATE DASHBOARD
      *************************************************************/
     async function fetchHikeDataFromSheet() {
@@ -273,50 +368,22 @@
         const response = await fetch(DO_GET_URL); // GET request
         const submissions = await response.json(); // array of objects
 
-        // Reset counters
-        let fiveCount = 0;
-        let tenCount = 0;
-        let fiftyCount = 0;
-
-        // Clear existing list
-        document.getElementById('nameList').innerHTML = "";
-
-        // Tally & display
-        submissions.forEach((entry, index) => {
-          // Count the hike distances
-          if (entry.hikeLength === "5 Mile Hike") fiveCount++;
-          else if (entry.hikeLength === "10 Mile Hike") tenCount++;
-          else if (entry.hikeLength === "50 Mile Hike") fiftyCount++;
-
-          // The finisher's position is index+1 (1-based)
-          const finisherNumber = index + 1;
-
-          // Extract only YYYY-MM-DD from the timestamp (e.g. "2025-03-21T07:00:00.000Z" => "2025-03-21")
-          const dateOnly = entry.timestamp.split("T")[0];
-
-          // e.g., "1) Jacob Summerhays - 2025-03-21"
-          const nameDiv = document.createElement('div');
-          nameDiv.classList.add('name-item');
-          nameDiv.textContent = `${finisherNumber}) ${entry.name} - ${dateOnly}`;
-          document.getElementById('nameList').appendChild(nameDiv);
-        });
-
-        // Update the counters on the dashboard
-        document.getElementById('fiveMileCount').textContent = fiveCount;
-        document.getElementById('tenMileCount').textContent = tenCount;
-        document.getElementById('fiftyMileCount').textContent = fiftyCount;
-
-        // Calculate total miles
-        const totalMiles = (fiveCount * 5) + (tenCount * 10) + (fiftyCount * 50);
-        document.getElementById('totalMilesHiked').textContent = totalMiles;
-
+        // Cache data locally to avoid showing zeros on subsequent visits
+        localStorage.setItem("hikeDashboardData", JSON.stringify(submissions));
+        renderDashboard(submissions);
       } catch (err) {
         console.error("Failed to fetch data from Sheets:", err);
       }
     }
 
-    // On page load, fetch existing data from Sheets
-    window.onload = fetchHikeDataFromSheet;
+    // On page load, first try to render cached data, then fetch new data
+    window.onload = function() {
+      const cached = localStorage.getItem("hikeDashboardData");
+      if (cached) {
+        renderDashboard(JSON.parse(cached));
+      }
+      fetchHikeDataFromSheet();
+    };
   </script>
 </body>
 </html>
